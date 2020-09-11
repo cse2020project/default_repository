@@ -188,7 +188,6 @@ def detect(opt, save_img=False):
                     print("세번째")
 
                     list=torch.tensor(xyxy)
-
                     # Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기
                     '''#Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기 '''
                     x_list_1 = list[0]
@@ -199,22 +198,35 @@ def detect(opt, save_img=False):
                     width = x_list_2 - x_list_1
                     center_x = x_list_1 + width / 2
 
-
-                    if height/width<1.5:
-                        img_h, img_w, _ = im0.shape
-                        x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy)
-                        obj = [x_c, y_c, bbox_w, bbox_h]
+                    img_h, img_w, _ = im0.shape
+                    x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy)
+                    obj = [x_c, y_c, bbox_w, bbox_h]
+                    #가로세로 비율이 1.5미만일 경우 deepsort를 위한 리스트에 append
+                    #가로세로 비율이 1.5이상인 경우 append하지 않는다.
+                    '''추가'''
+                    if width/height<1.5:
                         bbox_xywh.append(obj)
                         confs.append([conf.item()])
 
 
-                
+
                 xywhs = torch.Tensor(bbox_xywh)
                 confss = torch.Tensor(confs)
 
+
+
                 # Pass detections to deepsort
 
-                outputs = deepsort.update(xywhs, confss , im0)
+
+                #오류 수정
+                '''추가'''
+                outputs=[]
+
+                #bbox_xywh에 아무것도 없음==정면인 차가 detect되지 않았음
+                #코드를 실행하지 않는다 .
+                '''추가'''
+                if len(bbox_xywh)!=0:
+                    outputs = deepsort.update(xywhs, confss , im0)
 
                 # draw boxes for visualization
                 if len(outputs) > 0:
@@ -233,7 +245,7 @@ def detect(opt, save_img=False):
                 break
 
             # Save results (image with detections)
-            if False:
+            if save_img:
                 if dataset.mode == 'images':
                     cv2.imwrite(save_path, im0)
                 else:
