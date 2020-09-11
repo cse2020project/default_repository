@@ -30,6 +30,7 @@ palette = (2 ** 11 - 1, 2 ** 15 - 1, 2 ** 20 - 1)
 
 def bbox_rel(image_width, image_height,  *xyxy):
     """" Calculates the relative bounding box from absolute pixel values. """
+
     bbox_left = min([xyxy[0].item(), xyxy[2].item()])
     bbox_top = min([xyxy[1].item(), xyxy[3].item()])
     bbox_w = abs(xyxy[0].item() - xyxy[2].item())
@@ -124,6 +125,11 @@ def detect(opt, save_img=False):
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
+
+        # img 프레임 자르기
+        '''input 이미지 프레임 자르기'''
+        img = img[:, 100:320, :]
+
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if img.ndimension() == 3:
@@ -136,6 +142,10 @@ def detect(opt, save_img=False):
         # Apply NMS
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=opt.classes, agnostic=opt.agnostic_nms)
         t2 = time_synchronized()
+
+        # 결과 이미지 프레임 자르기
+        '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
+        im0s = im0s[170:540, :, :]
 
         # Apply Classifier
         if classify:
@@ -153,6 +163,9 @@ def detect(opt, save_img=False):
             txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
             s += '%gx%g ' % img.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
+
+
+            #만약 차량이 detect된 경우
             if det is not None and len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
@@ -162,21 +175,40 @@ def detect(opt, save_img=False):
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
+                ''' ????'''
                 bbox_xywh = []
                 confs = []
 
                 # Adapt detections to deep sort input format
                 for *xyxy, conf, cls in det:
-                    img_h, img_w, _ = im0.shape
-                    x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy)
-                    obj = [x_c, y_c, bbox_w, bbox_h]
-                    bbox_xywh.append(obj)
-                    confs.append([conf.item()])
+
+                    list=torch.tensor(xyxy)
+
+                    # Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기
+                    '''#Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기 '''
+                    x_list_1 = list[0]
+                    x_list_2 = list[2]
+                    y_list_1 = list[1]
+                    y_list_2 = list[3]
+                    height = y_list_2 - y_list_1
+                    width = x_list_2 - x_list_1
+                    center_x = x_list_1 + width / 2
+
+
+                    if height/width<1.5:
+                        img_h, img_w, _ = im0.shape
+                        x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy)
+                        obj = [x_c, y_c, bbox_w, bbox_h]
+                        bbox_xywh.append(obj)
+                        confs.append([conf.item()])
+
+
                 
                 xywhs = torch.Tensor(bbox_xywh)
                 confss = torch.Tensor(confs)
 
                 # Pass detections to deepsort
+
                 outputs = deepsort.update(xywhs, confss , im0)
 
                 # draw boxes for visualization
@@ -189,14 +221,14 @@ def detect(opt, save_img=False):
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, t2 - t1))
 
+
             # Stream results
-            if view_img:
-                cv2.imshow(p, im0)
-                if cv2.waitKey(1) == ord('q'):  # q to quit
-                    raise StopIteration
+            cv2.imshow('frame', im0)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
             # Save results (image with detections)
-            if save_img:
+            if False:
                 if dataset.mode == 'images':
                     cv2.imwrite(save_path, im0)
                 else:
