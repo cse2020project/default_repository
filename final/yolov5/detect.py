@@ -64,7 +64,7 @@ def detect(save_img=False):
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
-
+        print("이미지 사이즈",img.shape)
         # img 프레임 자르기
         '''input 이미지 프레임 자르기'''
         img=img[:,100:320,:]
@@ -104,7 +104,8 @@ def detect(save_img=False):
         # Process detections
         for i, det in enumerate(pred):  # detections per image
 
-            print("det: ",det,"/i: ",i)
+
+            print("2번쨰 det: ",det,"/i: ",i)
             if webcam:  # batch_size >= 1
                 p, s, im0 = path[i], '%g: ' % i, im0s[i].copy()
             else:
@@ -126,6 +127,7 @@ def detect(save_img=False):
                 # Print results
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
+                    print("세번째")
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
@@ -142,8 +144,8 @@ def detect(save_img=False):
                         #Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기
                         '''#Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기 '''
                         list=torch.tensor(xyxy)
-                        x1=list[0]
-                        x2=list[2]
+                        x1=list[0]#왼쪽 x
+                        x2=list[2]#오른쪽 x
                         y1=list[1]
                         y2=list[3]
                         height=y2-y1

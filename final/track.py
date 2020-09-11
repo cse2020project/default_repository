@@ -124,11 +124,12 @@ def detect(opt, save_img=False):
     img = torch.zeros((1, 3, imgsz, imgsz), device=device)  # init img
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
     for path, img, im0s, vid_cap in dataset:
+        print("첫번째")
         img = torch.from_numpy(img).to(device)
 
         # img 프레임 자르기
         '''input 이미지 프레임 자르기'''
-        img = img[:, 100:320, :]
+        img = img[:,100:320, :]
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -147,6 +148,7 @@ def detect(opt, save_img=False):
         '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
         im0s = im0s[170:540, :, :]
 
+
         # Apply Classifier
         if classify:
             pred = apply_classifier(pred, modelc, img, im0s)
@@ -154,6 +156,7 @@ def detect(opt, save_img=False):
 
         # Process detections
         for i, det in enumerate(pred):  # detections per image
+            print("두번째")
             if webcam:  # batch_size >= 1
                 p, s, im0 = path[i], '%g: ' % i, im0s[i].copy()
             else:
@@ -167,6 +170,7 @@ def detect(opt, save_img=False):
 
             #만약 차량이 detect된 경우
             if det is not None and len(det):
+                
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
 
@@ -181,6 +185,7 @@ def detect(opt, save_img=False):
 
                 # Adapt detections to deep sort input format
                 for *xyxy, conf, cls in det:
+                    print("세번째")
 
                     list=torch.tensor(xyxy)
 
