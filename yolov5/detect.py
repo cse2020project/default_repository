@@ -64,10 +64,21 @@ def detect(save_img=False):
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
+
+        # img 프레임 자르기
+        '''input 이미지 프레임 자르기'''
+        img=img[:,100:320,:]
+        ''''''
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if img.ndimension() == 3:
             img = img.unsqueeze(0)
+
+
+
+
+
+
 
         # Inference
         t1 = time_synchronized()
@@ -77,12 +88,23 @@ def detect(save_img=False):
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=opt.classes, agnostic=opt.agnostic_nms)
         t2 = time_synchronized()
 
+       #pytorch배열->넘파이 배열로 바꾸기
+        '''im0s = img.squeeze(dim=0)
+        im0s = im0s.permute(1, 2, 0)
+        im0s = im0s.numpy()
+        print(im0s.shape)'''
+
+        #결과 이미지 프레임 자르기
+        '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
+        im0s=im0s[170:540,:,:]
         # Apply Classifier
         if classify:
             pred = apply_classifier(pred, modelc, img, im0s)
 
         # Process detections
         for i, det in enumerate(pred):  # detections per image
+
+            print("det: ",det,"/i: ",i)
             if webcam:  # batch_size >= 1
                 p, s, im0 = path[i], '%g: ' % i, im0s[i].copy()
             else:
@@ -91,38 +113,71 @@ def detect(save_img=False):
             save_path = str(Path(out) / Path(p).name)
             txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
             s += '%gx%g ' % img.shape[2:]  # print string
+
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
+
+            #만약 차량이 detect된 경우
             if det is not None and len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
+
+
 
                 # Print results
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
-
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
+
                     if save_txt:  # Write to file
+
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         with open(txt_path + '.txt', 'a') as f:
                             f.write(('%g ' * 5 + '\n') % (cls, *xywh))  # label format
 
                     if save_img or view_img:  # Add bbox to image
                         label = '%s %.2f' % (names[int(cls)], conf)
-                        plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
+
+                        #Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기
+                        '''#Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기 '''
+                        list=torch.tensor(xyxy)
+                        x1=list[0]
+                        x2=list[2]
+                        y1=list[1]
+                        y2=list[3]
+                        height=y2-y1
+                        width=x2-x1
+                        center_x=x1+width/2
+                        print("높이: ",height)
+                        print("너비: ",width)
+                        print("x좌표: ",center_x)
+                        if(width/height<1.45):
+                          plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=3)
 
             # Print time (inference + NMS)
+
+
             print('%sDone. (%.3fs)' % (s, t2 - t1))
 
+
+            # Display the resulting frame
+            '''영상 실시간으로 보여주기'''
+            cv2.imshow('frame', im0)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+
+
+
             # Stream results
-            if view_img:
+            if False:
                 cv2.imshow(p, im0)
                 if cv2.waitKey(1) == ord('q'):  # q to quit
                     raise StopIteration
 
             # Save results (image with detections)
-            if save_img:
+            if False:
                 if dataset.mode == 'images':
                     cv2.imwrite(save_path, im0)
                 else:
@@ -137,7 +192,6 @@ def detect(save_img=False):
                         h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*fourcc), fps, (w, h))
                     vid_writer.write(im0)
-
     if save_txt or save_img:
         print('Results saved to %s' % Path(out))
         if platform.system() == 'Darwin' and not opt.update:  # MacOS
