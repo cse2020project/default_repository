@@ -124,12 +124,11 @@ def detect(opt, save_img=False):
     img = torch.zeros((1, 3, imgsz, imgsz), device=device)  # init img
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
     for path, img, im0s, vid_cap in dataset:
-        print("첫번째")
         img = torch.from_numpy(img).to(device)
 
         # img 프레임 자르기
         '''input 이미지 프레임 자르기'''
-        img = img[:,100:320, :]
+        #img = img[:,100:320, :]
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -146,21 +145,21 @@ def detect(opt, save_img=False):
 
         # 결과 이미지 프레임 자르기
         '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
-        im0s = im0s[170:540, :, :]
+        #im0s = im0s[170:540, :, :]
 
 
         # Apply Classifier
         if classify:
             pred = apply_classifier(pred, modelc, img, im0s)
 
-
         # Process detections
         for i, det in enumerate(pred):  # detections per image
-            print("두번째")
             if webcam:  # batch_size >= 1
                 p, s, im0 = path[i], '%g: ' % i, im0s[i].copy()
             else:
                 p, s, im0 = path, '', im0s
+
+            print(p)
 
             save_path = str(Path(out) / Path(p).name)
             txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
@@ -185,7 +184,6 @@ def detect(opt, save_img=False):
 
                 # Adapt detections to deep sort input format
                 for *xyxy, conf, cls in det:
-                    print("세번째")
 
                     list=torch.tensor(xyxy)
                     # Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기
@@ -204,7 +202,8 @@ def detect(opt, save_img=False):
                     #가로세로 비율이 1.5미만일 경우 deepsort를 위한 리스트에 append
                     #가로세로 비율이 1.5이상인 경우 append하지 않는다.
                     '''추가'''
-                    if width/height<1.5:
+                    print("자동차 비율  %d"%(width/height))
+                    if width/height<1.15:
                         bbox_xywh.append(obj)
                         confs.append([conf.item()])
 
