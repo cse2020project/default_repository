@@ -64,7 +64,11 @@ def detect(save_img=False):
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
+<<<<<<< HEAD:final/yolov5/detect.py
         print("이미지 사이즈",img.shape)
+=======
+
+>>>>>>> 34ed5d0281f9fb049d505586579a42a3e89bfaf9:yolov5/detect.py
         # img 프레임 자르기
         '''input 이미지 프레임 자르기'''
         img=img[:,100:320,:]
@@ -104,8 +108,12 @@ def detect(save_img=False):
         # Process detections
         for i, det in enumerate(pred):  # detections per image
 
+<<<<<<< HEAD:final/yolov5/detect.py
 
             print("2번쨰 det: ",det,"/i: ",i)
+=======
+            print("det: ",det,"/i: ",i)
+>>>>>>> 34ed5d0281f9fb049d505586579a42a3e89bfaf9:yolov5/detect.py
             if webcam:  # batch_size >= 1
                 p, s, im0 = path[i], '%g: ' % i, im0s[i].copy()
             else:
@@ -144,8 +152,13 @@ def detect(save_img=False):
                         #Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기
                         '''#Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기 '''
                         list=torch.tensor(xyxy)
+<<<<<<< HEAD:final/yolov5/detect.py
                         x1=list[0]#왼쪽 x
                         x2=list[2]#오른쪽 x
+=======
+                        x1=list[0]
+                        x2=list[2]
+>>>>>>> 34ed5d0281f9fb049d505586579a42a3e89bfaf9:yolov5/detect.py
                         y1=list[1]
                         y2=list[3]
                         height=y2-y1
@@ -179,7 +192,11 @@ def detect(save_img=False):
                     raise StopIteration
 
             # Save results (image with detections)
+<<<<<<< HEAD:final/yolov5/detect.py
             if True:
+=======
+            if False:
+>>>>>>> 34ed5d0281f9fb049d505586579a42a3e89bfaf9:yolov5/detect.py
                 if dataset.mode == 'images':
                     cv2.imwrite(save_path, im0)
                 else:

@@ -1,10 +1,12 @@
 import argparse
 import os
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 import platform
 import shutil
 import time
 from pathlib import Path
+from torchvision import transforms
 
 import cv2
 import torch
@@ -13,6 +15,7 @@ from numpy import random
 
 # https://github.com/pytorch/pytorch/issues/3678
 import sys
+
 sys.path.insert(0, './yolov5')
 
 from yolov5.models.experimental import attempt_load
@@ -24,11 +27,10 @@ from yolov5.utils.torch_utils import select_device, load_classifier, time_synchr
 from deep_sort.utils.parser import get_config
 from deep_sort.deep_sort import DeepSort
 
-
 palette = (2 ** 11 - 1, 2 ** 15 - 1, 2 ** 20 - 1)
 
 
-def bbox_rel(image_width, image_height,  *xyxy):
+def bbox_rel(image_width, image_height, *xyxy):
     """" Calculates the relative bounding box from absolute pixel values. """
 
     bbox_left = min([xyxy[0].item(), xyxy[2].item()])
@@ -50,7 +52,7 @@ def compute_color_for_labels(label):
     return tuple(color)
 
 
-def draw_boxes(img, bbox, identities=None, offset=(0,0)):
+def draw_boxes(img, bbox, identities=None, offset=(0, 0)):
     for i, box in enumerate(bbox):
         x1, y1, x2, y2 = [int(i) for i in box]
         x1 += offset[0]
@@ -58,11 +60,11 @@ def draw_boxes(img, bbox, identities=None, offset=(0,0)):
         y1 += offset[1]
         y2 += offset[1]
         # box text and bar
-        id = int(identities[i]) if identities is not None else 0    
+        id = int(identities[i]) if identities is not None else 0
         color = compute_color_for_labels(id)
         label = '{}{:d}'.format("", id)
-        t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, 2 , 2)[0]
-        cv2.rectangle(img, (x1, y1),(x2,y2), color, 3)
+        t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, 2, 2)[0]
+        cv2.rectangle(img, (x1, y1), (x2, y2), color, 3)
         cv2.rectangle(img, (x1, y1), (x1 + t_size[0] + 3, y1 + t_size[1] + 4), color, -1)
         cv2.putText(img, label, (x1, y1 + t_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 2, [255, 255, 255], 2)
     return img
@@ -76,10 +78,11 @@ def detect(opt, save_img=False):
     # initialize deepsort
     cfg = get_config()
     cfg.merge_from_file(opt.config_deepsort)
-    deepsort = DeepSort(cfg.DEEPSORT.REID_CKPT, 
-                        max_dist=cfg.DEEPSORT.MAX_DIST, min_confidence=cfg.DEEPSORT.MIN_CONFIDENCE, 
-                        nms_max_overlap=cfg.DEEPSORT.NMS_MAX_OVERLAP, max_iou_distance=cfg.DEEPSORT.MAX_IOU_DISTANCE, 
-                        max_age=cfg.DEEPSORT.MAX_AGE, n_init=cfg.DEEPSORT.N_INIT, nn_budget=cfg.DEEPSORT.NN_BUDGET, use_cuda=True)
+    deepsort = DeepSort(cfg.DEEPSORT.REID_CKPT,
+                        max_dist=cfg.DEEPSORT.MAX_DIST, min_confidence=cfg.DEEPSORT.MIN_CONFIDENCE,
+                        nms_max_overlap=cfg.DEEPSORT.NMS_MAX_OVERLAP, max_iou_distance=cfg.DEEPSORT.MAX_IOU_DISTANCE,
+                        max_age=cfg.DEEPSORT.MAX_AGE, n_init=cfg.DEEPSORT.N_INIT, nn_budget=cfg.DEEPSORT.NN_BUDGET,
+                        use_cuda=True)
 
     # Initialize
     device = select_device(opt.device)
@@ -89,9 +92,9 @@ def detect(opt, save_img=False):
     half = device.type != 'cpu'  # half precision only supported on CUDA
 
     # Load model
-    #google_utils.attempt_download(weights)
+    # google_utils.attempt_download(weights)
     model = torch.load(weights, map_location=device)['model'].float()  # load to FP32
-    #model = torch.save(torch.load(weights, map_location=device), weights)  # update model if SourceChangeWarning
+    # model = torch.save(torch.load(weights, map_location=device), weights)  # update model if SourceChangeWarning
     # model.fuse()
     model.to(device).eval()
     if half:
@@ -129,6 +132,8 @@ def detect(opt, save_img=False):
         # img 프레임 자르기
         '''input 이미지 프레임 자르기'''
         #img = img[:,100:320, :]
+        img=transforms.ColorJitter(contrast=1)(img)
+
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -145,8 +150,7 @@ def detect(opt, save_img=False):
 
         # 결과 이미지 프레임 자르기
         '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
-        #im0s = im0s[170:540, :, :]
-
+        #im0s = im0s[290:540, :, :]
 
         # Apply Classifier
         if classify:
@@ -164,12 +168,11 @@ def detect(opt, save_img=False):
             save_path = str(Path(out) / Path(p).name)
             txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
             s += '%gx%g ' % img.shape[2:]  # print string
-            gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
+            gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
 
-
-            #만약 차량이 detect된 경우
+            # 만약 차량이 detect된 경우
             if det is not None and len(det):
-                
+
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
 
@@ -185,7 +188,7 @@ def detect(opt, save_img=False):
                 # Adapt detections to deep sort input format
                 for *xyxy, conf, cls in det:
 
-                    list=torch.tensor(xyxy)
+                    list = torch.tensor(xyxy)
                     # Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기
                     '''#Detect된 차량 x좌표값 구하기 및 가로세로 비율로 정면 차량 구하기 '''
                     x_list_1 = list[0]
@@ -199,33 +202,30 @@ def detect(opt, save_img=False):
                     img_h, img_w, _ = im0.shape
                     x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy)
                     obj = [x_c, y_c, bbox_w, bbox_h]
-                    #가로세로 비율이 1.5미만일 경우 deepsort를 위한 리스트에 append
-                    #가로세로 비율이 1.5이상인 경우 append하지 않는다.
+                    # 가로세로 비율이 1.5미만일 경우 deepsort를 위한 리스트에 append
+                    # 가로세로 비율이 1.5이상인 경우 append하지 않는다.
+                    bbox_xywh.append(obj)
+                    confs.append([conf.item()])
                     '''추가'''
-                    print("자동차 비율  %d"%(width/height))
-                    if width/height<1.15:
+                    '''print("자동차 비율  %d" % (width / height))
+                    if width / height < 1.15:
                         bbox_xywh.append(obj)
-                        confs.append([conf.item()])
-
-
+                        confs.append([conf.item()])'''
 
                 xywhs = torch.Tensor(bbox_xywh)
                 confss = torch.Tensor(confs)
 
-
-
                 # Pass detections to deepsort
 
-
-                #오류 수정
+                # 오류 수정
                 '''추가'''
-                outputs=[]
+                outputs = []
 
-                #bbox_xywh에 아무것도 없음==정면인 차가 detect되지 않았음
-                #코드를 실행하지 않는다 .
+                # bbox_xywh에 아무것도 없음==정면인 차가 detect되지 않았음
+                # 코드를 실행하지 않는다 .
                 '''추가'''
-                if len(bbox_xywh)!=0:
-                    outputs = deepsort.update(xywhs, confss , im0)
+                if len(bbox_xywh) != 0:
+                    outputs = deepsort.update(xywhs, confss, im0)
 
                 # draw boxes for visualization
                 if len(outputs) > 0:
@@ -236,7 +236,6 @@ def detect(opt, save_img=False):
 
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, t2 - t1))
-
 
             # Stream results
             cv2.imshow('frame', im0)
@@ -271,7 +270,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', type=str, default='yolov5/weights/yolov5m.pt', help='model.pt path')
     parser.add_argument('--source', type=str, default='inference/images', help='source')  # file/folder, 0 for webcam
-    parser.add_argument('--output', type=str, default='inference/output', help='output folder')  # output folder
+    parser.add_argument('--output', type=str, default='yolov5/inference/output', help='output folder')  # output folder
     parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
     parser.add_argument('--conf-thres', type=float, default=0.4, help='object confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.5, help='IOU threshold for NMS')
