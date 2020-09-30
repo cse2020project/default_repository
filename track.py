@@ -24,6 +24,7 @@ from yolov5.utils.torch_utils import select_device, load_classifier, time_synchr
 from deep_sort.utils.parser import get_config
 from deep_sort.deep_sort import DeepSort
 
+#import coor
 
 palette = (2 ** 11 - 1, 2 ** 15 - 1, 2 ** 20 - 1)
 
@@ -127,14 +128,13 @@ def detect(opt, save_img=False):
     compare_dict = {}
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
-
-        """
-        # 프레임 3개에 하나 가져오기
+        '''
+        # 프레임 2개에 하나 가져오기
+        i+=1
         if i%3!=0:
             continue
-        i+=1
-        """
-        
+        '''
+
         # img 프레임 자르기
        # '''input 이미지 프레임 자르기'''
      #   img = img[:, 100:320, :]
@@ -212,16 +212,14 @@ def detect(opt, save_img=False):
                     img_h, img_w, _ = im0.shape #결과프레임의 사이즈
                     x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy) #center좌표, w, h
                     obj = [x_c, y_c, bbox_w, bbox_h]
-                    """
+
                     if width / height > 1.8:
                         print("side")
-                        continue
+                        #continue
                     if height * width < 600:
                         print("too small")
-                        continue
+                        #continue
 
-                    print("Front and close")
-                    """
                     #if width / height < 1.7:
                     bbox_xywh.append(obj)
                     confs.append([conf.item()])
@@ -238,15 +236,17 @@ def detect(opt, save_img=False):
 
                 # draw boxes for visualization
                 if len(outputs) > 0:
-                    print('here2')
+                    #print('here2')
                     bbox_tlwh = []
                     bbox_xyxy = outputs[:, :4]
                     identities = outputs[:, -1]
                     #identities = outputs[:, 4:5]
                     #print(bbox_xyxy)
-                    print(identities)
+                    #print(identities)
                     print(compare_dict)
                     ori_im = draw_boxes(im0, bbox_xyxy, identities)
+                    #coord = coor.coor((bbox_xyxy[:, 0]+bbox_xyxy[:, 2])/2)
+                    #ori_im = draw_boxes(im0, bbox_xyxy, coord)
 
 
             # Print time (inference + NMS)
@@ -304,3 +304,6 @@ if __name__ == '__main__':
 
     with torch.no_grad():
         detect(args)
+
+# python track.py --weights ./best.pt --source ../360cam_sample/0925samples/VID_20200924_204559_00_069.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d2.pt --source ../sample4.mp4 --img-size 640 --conf-thres 0.2
