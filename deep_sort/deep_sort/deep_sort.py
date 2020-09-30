@@ -7,6 +7,7 @@ from .sort.preprocessing import non_max_suppression
 from .sort.detection import Detection
 from .sort.tracker import Tracker
 
+from . import coor
 
 __all__ = ['DeepSort']
 
@@ -50,10 +51,12 @@ class DeepSort(object):
             box_size = (x2-x1)*(y2-y1)
             track_id = track.track_id
 
-            if track_id in dict and dict[track_id] > box_size : #dict에 id 정보가 이미 있고 박스 크기가 작아졌다면
-                print("size got smaller")
-                continue #넘어감
-            #outputs.append(np.array([x1,y1,x2,y2,track_id], dtype=np.int))
+            #if track_id in dict and dict[track_id] > box_size : #dict에 id 정보가 이미 있고 박스 크기가 작아졌다면
+                #print("car ", track_id ," size got smaller")
+            #    continue #넘어감
+            if track_id in dict and dict[track_id] < box_size : #dict에 id 정보가 이미 있고 박스 크기가 커졌다면
+                print("\ncar ", track_id ,"\'s degree is :  ",coor.coor((x2 + x1) / 2))
+
             outputs.append(np.array([x1, y1, x2, y2, track_id], dtype=np.int))
             dict[track_id] = box_size
 
