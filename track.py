@@ -48,12 +48,8 @@ def compute_color_for_labels(label):
     """
     color = [int((p * (label ** 2 - label + 1)) % 255) for p in palette]
     return tuple(color)
-<<<<<<< HEAD
+
 """
-=======
-
-
->>>>>>> ef2331daa8572f69dbe83a2100ef4d50cd8c8f36
 def draw_boxes(img, bbox, identities=None, offset=(0,0)):
     for i, box in enumerate(bbox):
         x1, y1, x2, y2 = [int(i) for i in box]
@@ -70,7 +66,6 @@ def draw_boxes(img, bbox, identities=None, offset=(0,0)):
         cv2.rectangle(img, (x1, y1), (x1 + t_size[0] + 3, y1 + t_size[1] + 4), color, -1)
         cv2.putText(img, label, (x1, y1 + t_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 2, [255, 255, 255], 2)
     return img
-<<<<<<< HEAD
 """
 def draw_boxes(img, bbox, identities=None, isCloser=None, offset=(0,0)):
     for i, box in enumerate(bbox):
@@ -90,9 +85,7 @@ def draw_boxes(img, bbox, identities=None, isCloser=None, offset=(0,0)):
         cv2.rectangle(img, (x1, y1), (x1 + t_size[0] + 3, y1 + t_size[1] + 4), color, -1)
         cv2.putText(img, label, (x1, y1 + t_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 2, [255, 255, 255], 2)
     return img
-=======
 
->>>>>>> ef2331daa8572f69dbe83a2100ef4d50cd8c8f36
 
 def detect(opt, save_img=False):
     out, source, weights, view_img, save_txt, imgsz = \
