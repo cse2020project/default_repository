@@ -1,0 +1,452 @@
+video 1/1 (1/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (2/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (3/205) C:\Users\eunji\Desktop\sample2.mp4: Front
+ and close
+Front and close
+320x640 2 cars, Done. (0.434s)
+video 1/1 (4/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (5/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (6/205) C:\Users\eunji\Desktop\sample2.mp4: Front
+ and close
+side
+320x640 2 cars, Done. (1.251s)
+video 1/1 (7/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (8/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (9/205) C:\Users\eunji\Desktop\sample2.mp4: Front
+ and close
+side
+{1: 1305}
+320x640 2 cars, Done. (0.693s)
+video 1/1 (10/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (11/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (12/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+{1: 1334}
+320x640 2 cars, Done. (1.109s)
+video 1/1 (13/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (14/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (15/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+{1: 1457}
+320x640 2 cars, Done. (0.751s)
+video 1/1 (16/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (17/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (18/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 1457}
+320x640 3 cars, Done. (0.529s)
+video 1/1 (19/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (20/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (21/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 1488}
+320x640 3 cars, Done. (0.425s)
+video 1/1 (22/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (23/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (24/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 1855}
+320x640 3 cars, Done. (0.373s)
+video 1/1 (25/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (26/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (27/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 2035}
+320x640 3 cars, Done. (0.475s)
+video 1/1 (28/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (29/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (30/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 2035}
+320x640 3 cars, Done. (0.471s)
+video 1/1 (31/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (32/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (33/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 2109}
+320x640 3 cars, Done. (0.389s)
+video 1/1 (34/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (35/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (36/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 2204}
+320x640 3 cars, Done. (0.439s)
+video 1/1 (37/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (38/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (39/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 2583}
+320x640 3 cars, Done. (0.653s)
+video 1/1 (40/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (41/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (42/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 2992}
+320x640 3 cars, Done. (0.774s)
+video 1/1 (43/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (44/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (45/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+Front and close
+side
+Front and close
+{1: 3504}
+320x640 4 cars, Done. (0.787s)
+video 1/1 (46/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (47/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (48/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 3876}
+320x640 3 cars, Done. (0.423s)
+video 1/1 (49/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (50/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (51/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+side
+{1: 3927}
+320x640 3 cars, Done. (0.623s)
+video 1/1 (52/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (53/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (54/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+Front and close
+side
+Front and close
+{1: 4187}
+320x640 5 cars, Done. (0.715s)
+video 1/1 (55/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (56/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (57/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+Front and close
+Front and close
+{1: 4510}
+320x640 4 cars, Done. (0.440s)
+video 1/1 (58/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (59/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (60/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+Front and close
+Front and close
+{1: 5046}
+320x640 4 cars, Done. (0.446s)
+video 1/1 (61/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (62/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (63/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+Front and close
+Front and close
+{1: 6240}
+320x640 4 cars, Done. (0.450s)
+video 1/1 (64/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (65/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (66/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+Front and close
+side
+Front and close
+{1: 6305}
+320x640 5 cars, Done. (0.787s)
+video 1/1 (67/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (68/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (69/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+{1: 7107}
+320x640 2 cars, Done. (0.486s)
+video 1/1 (70/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (71/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (72/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+Front and close
+{1: 8664}
+320x640 3 cars, Done. (0.459s)
+video 1/1 (73/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (74/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (75/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+{1: 10086}
+320x640 2 cars, Done. (0.421s)
+video 1/1 (76/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (77/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (78/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+{1: 12376}
+320x640 2 cars, Done. (0.445s)
+video 1/1 (79/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (80/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (81/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+Front and close
+side
+{1: 14751}
+320x640 3 cars, Done. (0.398s)
+video 1/1 (82/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (83/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (84/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+{1: 19040}
+320x640 2 cars, Done. (0.418s)
+video 1/1 (85/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (86/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (87/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+Front and close
+{1: 23001}
+320x640 2 cars, Done. (0.383s)
+video 1/1 (88/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (89/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (90/205) C:\Users\eunji\Desktop\sample2.mp4: si
+de
+side
+side
+Front and close
+{1: 24832}
+320x640 4 cars, Done. (0.444s)
+video 1/1 (91/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (92/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (93/205) C:\Users\eunji\Desktop\sample2.mp4: si
+de
+side
+Front and close
+Front and close
+320x640 4 cars, Done. (0.590s)
+video 1/1 (94/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (95/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (96/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+Front and close
+Front and close
+Front and close
+320x640 4 cars, Done. (0.513s)
+video 1/1 (97/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (98/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (99/205) C:\Users\eunji\Desktop\sample2.mp4: Fr
+ont and close
+side
+Front and close
+320x640 3 cars, Done. (0.391s)
+video 1/1 (100/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (101/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (102/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+side
+Front and close
+320x640 5 cars, Done. (0.439s)
+video 1/1 (103/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (104/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (105/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+side
+320x640 4 cars, Done. (0.461s)
+video 1/1 (106/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (107/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (108/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+side
+{1: 24832, 14: 897, 15: 3822}
+320x640 4 cars, Done. (0.425s)
+video 1/1 (109/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (110/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (111/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+side
+Front and close
+car  15  size got smaller
+{1: 24832, 14: 1000, 15: 3822}
+320x640 4 cars, Done. (0.405s)
+video 1/1 (112/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (113/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (114/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+car  15  size got smaller
+{1: 24832, 14: 1025, 15: 3822}
+320x640 3 cars, Done. (0.393s)
+video 1/1 (115/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (116/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (117/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+{1: 24832, 14: 1260, 15: 3822}
+320x640 3 cars, Done. (0.419s)
+video 1/1 (118/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (119/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (120/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+{1: 24832, 14: 1363, 15: 3822}
+320x640 2 cars, Done. (0.468s)
+video 1/1 (121/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (122/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (123/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+Front and close
+{1: 24832, 14: 1488, 15: 3822}
+320x640 3 cars, Done. (0.708s)
+video 1/1 (124/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (125/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (126/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+Front and close
+side
+car  14  size got smaller
+320x640 3 cars, Done. (0.469s)
+video 1/1 (127/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (128/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (129/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+Front and close
+Front and close
+{1: 24832, 14: 1716, 15: 3822, 16: 11985}
+320x640 4 cars, Done. (0.863s)
+video 1/1 (130/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (131/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (132/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 1716, 15: 3822, 16: 11985}
+320x640 3 cars, Done. (0.461s)
+video 1/1 (133/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (134/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (135/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 1802, 15: 3822, 16: 11985}
+320x640 3 cars, Done. (0.468s)
+video 1/1 (136/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (137/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (138/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 1802, 15: 3822, 16: 11985}
+320x640 3 cars, Done. (0.561s)
+video 1/1 (139/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (140/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (141/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+side
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 2183, 15: 3822, 16: 11985}
+320x640 5 cars, Done. (0.558s)
+video 1/1 (142/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (143/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (144/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+Front and close
+side
+side
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 2706, 15: 3822, 16: 11985}
+320x640 5 cars, Done. (0.474s)
+video 1/1 (145/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (146/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (147/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+Front and close
+side
+side
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 3358, 15: 3822, 16: 11985, 17: 608}
+320x640 5 cars, Done. (0.899s)
+video 1/1 (148/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (149/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (150/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+Front and close
+side
+too small
+car  16  size got smaller
+car  17  size got smaller
+{1: 24832, 14: 3920, 15: 3822, 16: 11985, 17: 608}
+320x640 5 cars, Done. (0.525s)
+video 1/1 (151/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (152/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (153/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+Front and close
+side
+car  16  size got smaller
+{1: 24832, 14: 4698, 15: 3822, 16: 11985, 17: 660}
+320x640 5 cars, Done. (0.574s)
+video 1/1 (154/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (155/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (156/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+Front and close
+side
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 5723, 15: 3822, 16: 11985, 17: 660}
+320x640 5 cars, Done. (0.437s)
+video 1/1 (157/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (158/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (159/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+Front and close
+side
+Front and close
+too small
+car  1  size got smaller
+car  16  size got smaller
+{1: 24832, 14: 6656, 15: 3822, 16: 11985, 17: 660}
+320x640 5 cars, Done. (0.422s)
+video 1/1 (160/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (161/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (162/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+Front and close
+Front and close
+Front and close
+car  1  size got smaller
+car  16  size got smaller
+{1: 24832, 14: 8614, 15: 3822, 16: 11985, 17: 660}
+320x640 4 cars, Done. (0.453s)
+video 1/1 (163/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (164/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (165/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+Front and close
+Front and close
+Front and close
+Front and close
+car  1  size got smaller
+car  16  size got smaller
+{1: 24832, 14: 10480, 15: 3822, 16: 11985, 17: 660}
+320x640 5 cars, Done. (0.415s)
+video 1/1 (166/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (167/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (168/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+car  1  size got smaller
+car  16  size got smaller
+{1: 24832, 14: 11288, 15: 3822, 16: 11985, 17: 660}
+320x640 3 cars, Done. (0.640s)
+video 1/1 (169/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (170/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (171/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+Front and close
+car  16  size got smaller
+{1: 24832, 14: 11288, 15: 3822, 16: 11985, 17: 660, 18: 1330}
+320x640 2 cars, Done. (0.803s)
+video 1/1 (172/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (173/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (174/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+car  16  size got smaller
+car  18  size got smaller
+320x640 3 cars, Done. (0.438s)
+video 1/1 (175/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (176/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (177/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+Front and close
+car  16  size got smaller
+320x640 3 cars, Done. (0.408s)
+video 1/1 (178/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (179/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (180/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+side
+car  16  size got smaller
+{1: 24832, 14: 11288, 15: 3822, 16: 11985, 17: 660, 18: 1330, 19: 22261}
+320x640 3 cars, Done. (0.427s)
+video 1/1 (181/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (182/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (183/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+car  19  size got smaller
+320x640 1 cars, Done. (0.420s)
+video 1/1 (184/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (185/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (186/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+Front and close
+side
+320x640 3 cars, Done. (0.457s)
+video 1/1 (187/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (188/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (189/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+side
+side
+Front and close
+side
+320x640 5 cars, Done. (0.399s)
+video 1/1 (190/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (191/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (192/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+side
+side
+Front and close
+320x640 4 cars, Done. (0.401s)
+video 1/1 (193/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (194/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (195/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+Front and close
+Front and close
+side
+320x640 5 cars, Done. (0.635s)
+video 1/1 (196/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (197/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (198/205) C:\Users\eunji\Desktop\sample2.mp4:
+ Front and close
+side
+side
+Front and close
+side
+320x640 5 cars, Done. (0.549s)
+video 1/1 (199/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (200/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (201/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+side
+side
+Front and close
+side
+{1: 24832, 14: 11288, 15: 3822, 16: 11985, 17: 660, 18: 1330, 19: 22261, 22: 1617}
+320x640 5 cars, Done. (0.891s)
+video 1/1 (202/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (203/205) C:\Users\eunji\Desktop\sample2.mp4: video 1/1 (204/205) C:\Users\eunji\Desktop\sample2.mp4:
+ side
+side
+Front and close
+side
+side
+{1: 24832, 14: 11288, 15: 3822, 16: 11985, 17: 660, 18: 1330, 19: 22261, 22: 1820}
+320x640 5 cars, Done. (0.627s)
+video 1/1 (205/205) C:\Users\eunji\Desktop\sample2.mp4: Results saved to C:\Users\eunji\Desktop\eunji-yolo\inference/output
+Done. (58.660s)
