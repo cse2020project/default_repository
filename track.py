@@ -48,7 +48,12 @@ def compute_color_for_labels(label):
     """
     color = [int((p * (label ** 2 - label + 1)) % 255) for p in palette]
     return tuple(color)
+<<<<<<< HEAD
 """
+=======
+
+
+>>>>>>> ef2331daa8572f69dbe83a2100ef4d50cd8c8f36
 def draw_boxes(img, bbox, identities=None, offset=(0,0)):
     for i, box in enumerate(bbox):
         x1, y1, x2, y2 = [int(i) for i in box]
@@ -65,6 +70,7 @@ def draw_boxes(img, bbox, identities=None, offset=(0,0)):
         cv2.rectangle(img, (x1, y1), (x1 + t_size[0] + 3, y1 + t_size[1] + 4), color, -1)
         cv2.putText(img, label, (x1, y1 + t_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 2, [255, 255, 255], 2)
     return img
+<<<<<<< HEAD
 """
 def draw_boxes(img, bbox, identities=None, isCloser=None, offset=(0,0)):
     for i, box in enumerate(bbox):
@@ -84,6 +90,9 @@ def draw_boxes(img, bbox, identities=None, isCloser=None, offset=(0,0)):
         cv2.rectangle(img, (x1, y1), (x1 + t_size[0] + 3, y1 + t_size[1] + 4), color, -1)
         cv2.putText(img, label, (x1, y1 + t_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 2, [255, 255, 255], 2)
     return img
+=======
+
+>>>>>>> ef2331daa8572f69dbe83a2100ef4d50cd8c8f36
 
 def detect(opt, save_img=False):
     out, source, weights, view_img, save_txt, imgsz = \
@@ -140,9 +149,8 @@ def detect(opt, save_img=False):
     t0 = time.time()
     img = torch.zeros((1, 3, imgsz, imgsz), device=device)  # init img
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
-    idx = 0
-    print("here")
 
+    idx = 0
     compare_dict = {}
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
@@ -152,6 +160,7 @@ def detect(opt, save_img=False):
         if i%3!=0:
             continue
         '''
+
         idx+=1
         if idx<55: continue
 
@@ -308,4 +317,4 @@ if __name__ == '__main__':
 
 # python track.py --weights ./best.pt --source ../360cam_sample/0925samples/VID_20200924_204559_00_069.mp4 --img-size 640 --conf-thres 0.2
 # python track.py --weights ./d2.pt --source ../sample4.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d4_300.pt --source ../360cam_sample/1004samples/step1_back.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d4_300.pt --source ../360cam_sample/1004samples/step1_front.mp4 --img-size 640 --conf-thres 0.2

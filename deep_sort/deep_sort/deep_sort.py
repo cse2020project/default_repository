@@ -42,8 +42,10 @@ class DeepSort(object):
         self.tracker.predict()
         self.tracker.update(detections)
 
+
         # coordinate - 방향 전달
         coors = []
+
         # output bbox identities
         outputs = []
         for track in self.tracker.tracks:
