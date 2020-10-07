@@ -7,7 +7,7 @@ import shutil
 import time
 from pathlib import Path
 from torchvision import transforms
-
+import numpy
 import cv2
 import torch
 import torch.backends.cudnn as cudnn
@@ -132,13 +132,15 @@ def detect(opt, save_img=False):
         # img 프레임 자르기
         '''input 이미지 프레임 자르기'''
         #img = img[:,100:320, :]
-        img=transforms.ColorJitter(contrast=1)(img)
+        #print(img.size())
+        img=transforms.ColorJitter(contrast=0.3,saturation=0.4)(img)
 
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if img.ndimension() == 3:
             img = img.unsqueeze(0)
+
 
         # Inference
         t1 = time_synchronized()
@@ -151,6 +153,14 @@ def detect(opt, save_img=False):
         # 결과 이미지 프레임 자르기
         '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
         #im0s = im0s[290:540, :, :]
+        '''im0s = torch.from_numpy(im0s)
+        im0s=im0s.permute(2,0,1)
+        im0s = transforms.ColorJitter(contrast=0.3, saturation=0.4)(im0s)
+        im0s = im0s.permute(1,2,0)
+        im0s=im0s.numpy()'''
+
+
+
 
         # Apply Classifier
         if classify:
@@ -162,6 +172,7 @@ def detect(opt, save_img=False):
                 p, s, im0 = path[i], '%g: ' % i, im0s[i].copy()
             else:
                 p, s, im0 = path, '', im0s
+
 
             print(p)
 
@@ -199,12 +210,14 @@ def detect(opt, save_img=False):
                     width = x_list_2 - x_list_1
                     center_x = x_list_1 + width / 2
 
+
                     img_h, img_w, _ = im0.shape
                     x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy)
                     obj = [x_c, y_c, bbox_w, bbox_h]
                     # 가로세로 비율이 1.5미만일 경우 deepsort를 위한 리스트에 append
                     # 가로세로 비율이 1.5이상인 경우 append하지 않는다.
                     bbox_xywh.append(obj)
+                    print(conf.item())
                     confs.append([conf.item()])
                     '''추가'''
                     '''print("자동차 비율  %d" % (width / height))
@@ -227,15 +240,18 @@ def detect(opt, save_img=False):
                 if len(bbox_xywh) != 0:
                     outputs = deepsort.update(xywhs, confss, im0)
 
+
                 # draw boxes for visualization
                 if len(outputs) > 0:
                     bbox_tlwh = []
                     bbox_xyxy = outputs[:, :4]
                     identities = outputs[:, -1]
+                    im0= numpy.array(im0)
                     ori_im = draw_boxes(im0, bbox_xyxy, identities)
 
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, t2 - t1))
+            im0=im0[200:,:,:]
 
             # Stream results
             cv2.imshow('frame', im0)
