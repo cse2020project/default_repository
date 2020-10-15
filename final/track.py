@@ -154,33 +154,33 @@ def detect(opt, save_img=False):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='polar')  # 1,1,1그리드
 
+    i=0
+    flag = 0  # 비디오 저장시 사용할 플래그
     for path, img, im0s, vid_cap in dataset:
         #plt
         # Plot origin (agent's start point) - 원점=보행자
         ax.plot(0, 0, color='red', marker='o', markersize=20, alpha=0.3)
         # Plot configuration
         ax.set_rticks([])
-        ax.set_rmin(0)
         ax.set_rmax(1)
-        ax.set_thetalim(0, 2 * np.pi)
-        ax.set_xticks(np.linspace(0, 2 * np.pi, 8, endpoint=False))
         ax.grid(False)
         ax.set_theta_zero_location("S")  # 0도가 어디에 있는지-S=남쪽
         ax.set_theta_direction(-1)  # 시계방향 극좌표
+
         img = torch.from_numpy(img).to(device)
-        '''
+
         # 프레임 2개에 하나 가져오기
         i+=1
-        if i%3!=0:
+        if i%4!=0:
             continue
-        '''
+
 
         idx+=1
         if idx<55: continue
 
         # img 프레임 자르기
        # '''input 이미지 프레임 자르기'''
-     #   img = img[:, 100:320, :]
+        img = img[:, 100:260, :]
 
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
@@ -196,11 +196,12 @@ def detect(opt, save_img=False):
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=opt.classes, agnostic=opt.agnostic_nms)
         t2 = time_synchronized()
 
-        """
+
         # 결과 이미지 프레임 자르기
-        '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
-        im0s = im0s[170:540, :, :]
-        """
+        #결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)
+        im0s = im0s[200:520, :, :]
+        print(im0s.shape)
+
 
         # Apply Classifier
         if classify:
@@ -257,7 +258,7 @@ def detect(opt, save_img=False):
                 outputs= []
 
                 if len(bbox_xywh)!=0: #뭔가 detect됐다면 deepsort로 보냄
-                    outputs,coors,angle,frame,identities = deepsort.update(xywhs, confss , im0, compare_dict,dataset.frame)
+                    outputs,coors,frame = deepsort.update(xywhs, confss , im0, compare_dict,dataset.frame)
 
                 # draw boxes for visualization
                 if len(outputs) > 0:
@@ -274,7 +275,7 @@ def detect(opt, save_img=False):
                     #ori_im = draw_boxes(im0, bbox_xyxy, coord)
 
                     # 방향 display하는 함수 호출
-                    alert.show_direction(ax,coors,angle,frame,identities)
+                    alert.show_direction(ax,coors,frame)
 
 
 
@@ -284,7 +285,7 @@ def detect(opt, save_img=False):
 
 
             plt.show(block=False)
-            plt.pause(0.5)
+            plt.pause(0.05)
             plt.cla()
 
             # Stream results
@@ -292,21 +293,27 @@ def detect(opt, save_img=False):
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
+
+
             # Save results (image with detections)
             if save_img:
                 if dataset.mode == 'images':
                     cv2.imwrite(save_path, im0)
                 else:
-                    if vid_path != save_path:  # new video
+                    if(flag==0):
                         vid_path = save_path
                         if isinstance(vid_writer, cv2.VideoWriter):
                             vid_writer.release()  # release previous video writer
-
                         fps = vid_cap.get(cv2.CAP_PROP_FPS)
                         w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-                        h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                        # h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                        h = 320
+                        flag=1
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
-                    vid_writer.write(im0)
+                    else:
+                        vid_writer.write(im0)
+                        print("높이는 ")
+
 
     if save_txt or save_img:
         print('Results saved to %s' % os.getcwd() + os.sep + out)

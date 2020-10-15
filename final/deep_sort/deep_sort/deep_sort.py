@@ -88,8 +88,8 @@ class DeepSort(object):
                 #print(x1, x2, (x1 + x2) / 2)
                 coors.append(coor.coor(x2 + x1) / 2)  # 중점좌표의 라디안값 저장
 
-                angle.append(coor.coor((x2 + x1) / 2) * 57.29578)#실제 각도 저장
-                identities.append(track_id)#실제 가까워지는 차량의 아이디 저장
+                #angle.append(coor.coor((x2 + x1) / 2) * 57.29578)#실제 각도 저장
+                #identities.append(track_id)#실제 가까워지는 차량의 아이디 저장
 
 
             # outputs.append(np.array([x1, y1, x2, y2, track_id], dtype=np.int))
@@ -102,7 +102,7 @@ class DeepSort(object):
 
 
 
-        return outputs,coors,angle,frame,identities
+        return outputs,coors,frame
 
     """
     TODO:

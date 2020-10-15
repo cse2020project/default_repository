@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def show_direction(ax,theta,angle,frame,identities):
+def show_direction(ax,theta,frame):
 
     #좌표 plot
     for thetha_single in theta:
