@@ -74,7 +74,7 @@ class DeepSort(object):
             # 2단계: 가로세로 비율을 비교해 측면차량을 필터링
             if box_ratio > 1.5: isCloser=False
             # 3단계: 주차된 차량을 필터링
-            if track_id in dict and abs(dict[track_id][0]-x_center) > 2.5: isCloser = False #x좌표가 +-2.5보다 크면 주차된차 (사람움직)
+            if track_id in dict and abs(dict[track_id][0]-x_center) > 5: isCloser = False #x좌표가 +-5보다 크면 주차된차 (사람움직)
             if track_id in dict and abs((dict[track_id][1]-box_size)/dict[track_id][1]) < 0.055: isCloser = False #바운딩박스 크기가 오차포함 일정하면 주차(사람 멈춤)
             if track_id in dict and dict[track_id][1]==False: isCloser = False
             # 4단계: 이전 프레임보다 바운딩박스가 작아진, 즉 멀어지는 차량을 필터링
