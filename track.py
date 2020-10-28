@@ -10,6 +10,10 @@ import cv2
 import torch
 import torch.backends.cudnn as cudnn
 from numpy import random
+import matplotlib.pyplot as plt
+import numpy as np
+from deep_sort.deep_sort import alert
+
 
 # https://github.com/pytorch/pytorch/issues/3678
 import sys
@@ -95,9 +99,9 @@ def detect(opt, save_img=False):
     # initialize deepsort
     cfg = get_config()
     cfg.merge_from_file(opt.config_deepsort)
-    deepsort = DeepSort(cfg.DEEPSORT.REID_CKPT, 
-                        max_dist=cfg.DEEPSORT.MAX_DIST, min_confidence=cfg.DEEPSORT.MIN_CONFIDENCE, 
-                        nms_max_overlap=cfg.DEEPSORT.NMS_MAX_OVERLAP, max_iou_distance=cfg.DEEPSORT.MAX_IOU_DISTANCE, 
+    deepsort = DeepSort(cfg.DEEPSORT.REID_CKPT,
+                        max_dist=cfg.DEEPSORT.MAX_DIST, min_confidence=cfg.DEEPSORT.MIN_CONFIDENCE,
+                        nms_max_overlap=cfg.DEEPSORT.NMS_MAX_OVERLAP, max_iou_distance=cfg.DEEPSORT.MAX_IOU_DISTANCE,
                         max_age=cfg.DEEPSORT.MAX_AGE, n_init=cfg.DEEPSORT.N_INIT, nn_budget=cfg.DEEPSORT.NN_BUDGET, use_cuda=True)
 
     # Initialize
@@ -145,21 +149,35 @@ def detect(opt, save_img=False):
 
     idx = 0
     compare_dict = {}
+
+    # create a new figure or activate an exisiting figure
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='polar')  # 1,1,1그리드
+
+    i=0
+    flag = 0  # 비디오 저장시 사용할 플래그
     for path, img, im0s, vid_cap in dataset:
+        #plt
+        # Plot origin (agent's start point) - 원점=보행자
+        ax.plot(0, 0, color='red', marker='o', markersize=20, alpha=0.3)
+        # Plot configuration
+        ax.set_rticks([])
+        ax.set_rmax(1)
+        ax.grid(False)
+        ax.set_theta_zero_location("S")  # 0도가 어디에 있는지-S=남쪽
+        ax.set_theta_direction(-1)  # 시계방향 극좌표
+
         img = torch.from_numpy(img).to(device)
-        '''
+
         # 프레임 2개에 하나 가져오기
-        i+=1
-        if i%3!=0:
-            continue
-        '''
+
 
         idx+=1
-        if idx<55: continue
+        if idx%10!=0: continue
 
         # img 프레임 자르기
        # '''input 이미지 프레임 자르기'''
-     #   img = img[:, 100:320, :]
+        img = img[:, 100:260, :]
 
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
@@ -175,11 +193,12 @@ def detect(opt, save_img=False):
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=opt.classes, agnostic=opt.agnostic_nms)
         t2 = time_synchronized()
 
-        """
+
         # 결과 이미지 프레임 자르기
-        '''결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)'''
-        im0s = im0s[170:540, :, :]
-        """
+        #결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)
+        im0s = im0s[200:520, :, :]
+      #  print(im0s.shape)
+
 
         # Apply Classifier
         if classify:
@@ -196,9 +215,18 @@ def detect(opt, save_img=False):
 
             save_path = str(Path(out) / Path(p).name)
             txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
-            s += '%gx%g ' % img.shape[2:]  # print string #영상 사이즈 출력 (예:640x320) - 삭제가능
-            gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
+            #print(dataset.frame) #프레임 번호
+     #       s += '%gx%g ' % img.shape[2:]  # print string #영상 사이즈 출력 (예:640x320) - 삭제가능
+            gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
 
+            ############옮김
+
+            ''' #쓸모 X
+            if i % 4 != 0:
+                print("i= ",i)
+                vid_writer.write(im0)
+                continue
+            '''
 
             #만약 차량이 detect된 경우
             if det is not None and len(det):
@@ -209,7 +237,7 @@ def detect(opt, save_img=False):
                 # Print results #개수와 클래스 출력(예: 5 cars) -삭제가능
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
-                    s += '%g %ss, ' % (n, names[int(c)])  # add to string
+     #               s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
                 ''' ????'''
                 bbox_xywh = []
@@ -235,7 +263,7 @@ def detect(opt, save_img=False):
                 outputs= []
 
                 if len(bbox_xywh)!=0: #뭔가 detect됐다면 deepsort로 보냄
-                    outputs = deepsort.update(xywhs, confss , im0, compare_dict)
+                    outputs,coors,frame = deepsort.update(xywhs, confss , im0, compare_dict,dataset.frame)
 
                 # draw boxes for visualization
                 if len(outputs) > 0:
@@ -245,36 +273,52 @@ def detect(opt, save_img=False):
                     isCloser = outputs[:, -1]
                     #print(bbox_xyxy)
                     #print(identities)
-                    #print(compare_dict)
+                    print(compare_dict)
 #                    ori_im = draw_boxes(im0, bbox_xyxy, identities) #bbox 그리기
                     ori_im = draw_boxes(im0, bbox_xyxy, identities, isCloser)  # bbox 그리기
                     #coord = coor.coor((bbox_xyxy[:, 0]+bbox_xyxy[:, 2])/2)
                     #ori_im = draw_boxes(im0, bbox_xyxy, coord)
 
+                    # 방향 display하는 함수 호출
+                    alert.show_direction(ax,coors,frame)
+
+
 
             # Print time (inference + NMS)
-            print('%sDone. (%.3fs)' % (s, t2 - t1))
+      #      print('%sDone. (%.3fs)' % (s, t2 - t1))
+
+
+
+            plt.show(block=False)
+            plt.pause(0.01)
+            plt.cla()
 
             # Stream results
             cv2.imshow('frame', im0)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
+
+
             # Save results (image with detections)
             if save_img:
                 if dataset.mode == 'images':
                     cv2.imwrite(save_path, im0)
                 else:
-                    if vid_path != save_path:  # new video
+                    if(flag==0):
                         vid_path = save_path
                         if isinstance(vid_writer, cv2.VideoWriter):
                             vid_writer.release()  # release previous video writer
-
                         fps = vid_cap.get(cv2.CAP_PROP_FPS)
                         w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-                        h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                        # h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                        h = 320
+                        flag=1
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
-                    vid_writer.write(im0)
+                    else:
+                        vid_writer.write(im0)
+                       # print("높이는 ")
+
 
     if save_txt or save_img:
         print('Results saved to %s' % os.getcwd() + os.sep + out)
@@ -282,6 +326,8 @@ def detect(opt, save_img=False):
             os.system('open ' + save_path)
 
     print('Done. (%.3fs)' % (time.time() - t0))
+
+
 
 
 if __name__ == '__main__':
@@ -309,5 +355,9 @@ if __name__ == '__main__':
         detect(args)
 
 # python track.py --weights ./best.pt --source ../360cam_sample/0925samples/VID_20200924_204559_00_069.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d2.pt --source ../sample4.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d4_300.pt --source ../360cam_sample/1004samples/step1_front.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d4_300.pt --source ../../sample4.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d4_300.pt --source ../../360cam_sample/1004samples/step1_front_3.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d4_300.pt --source ../../360cam_sample/1004samples/step3_back_2.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d4_300.pt --source ../../360cam_sample/1004samples/step3_front_2.mp4 --img-size 640 --conf-thres 0.2
+# 차량이 다가올 때, 사람과 차량이 같은 방향으로 움직임 step3_back_2
+# 차량이 다가올 때, 사람과 차량이 반대 방향으로 움직임(사람이 차쪽으로 다가감)
