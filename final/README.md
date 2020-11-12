@@ -2,6 +2,8 @@
 
 ![sample](samples/sample.gif)
 
+
+
 ## 프로젝트 설명
 
 이 프로젝트는 PyTorch를 활용한 DeepSORT 알고리즘(https://github.com/ZQPei/deep_sort_pytorch)에 커스텀 YOLOv5를 도입하여 360도 영상에서 차량을 감지 및 추적합니다. 360도 카메라를 착용한 보행자가 다가오는 차량에 경고 알림을 받을 수 있게 하여 보행 중 스마트 기기를 사용하는 주의 분산 보행자, 노인, 어린이와 같은 교통 약자의 안전한 보행을 보장하고자 합니다.
@@ -9,7 +11,6 @@
 ## 시스템 작동 방식
 
 영상에서 차량이 감지되면 해당 차량에 대해 추적을 시작합니다. 우리의 관심 대상, 즉 위험차량인 "보행자에게 다가오는 차량"은 360도 영상에서 정면 형태로 표현됩니다. 따라서 다음과 같은 필터링 알고리즘으로 비위험 차량을 제외합니다.
-
 ## 데이터셋
 
 모델의 성능을 향상시키기 위해 다양한 데이터셋을 사용해 여러 차례 모델을 학습시켰습니다.
@@ -100,10 +101,6 @@ python3 track.py --source ...
 - RTSP stream:  `--source rtsp://170.93.143.139/rtplive/470011e600ef003a004ee33696235daa`
 - HTTP stream:  `--source http://wmccpinetop.axiscam.net/mjpg/video.mjpg`
 
-## 기타
-
-For more detailed information about the algorithms and their corresponding lisences used in this project access their official github implementations.
-
 ## 참고 자료
 
 이 프로젝트는 다음과 같은 자료를 참고했습니다.
@@ -113,3 +110,7 @@ For more detailed information about the algorithms and their corresponding lisen
 - Yolov5 + Deep Sort with PyTorch
   https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch
 - 
+
+## 기타
+
+For more detailed information about the algorithms and their corresponding lisences used in this project access their official github implementations.
