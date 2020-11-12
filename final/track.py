@@ -222,7 +222,7 @@ def detect(opt, save_img=False):
             plt.show(block=False)
             # plot 차트 저장
             # idx가 10이면 1부터 9까지 10과 같은 이미지로 저장
-
+            '''
             file = '/Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png' % idx
             plt.savefig(file)
             for j in range(9):
@@ -230,6 +230,7 @@ def detect(opt, save_img=False):
                 plt.savefig(file)
 
             # 차량이 detect된 경우에만 그린다..
+            '''
             plt.pause(0.01)
             plt.cla()
 

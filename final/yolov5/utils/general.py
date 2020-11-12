@@ -17,14 +17,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn as nn
+import torchvision
 import yaml
 from scipy.cluster.vq import kmeans
 from scipy.signal import butter, filtfilt
 from tqdm import tqdm
 
-from utils.google_utils import gsutil_getsize
-from utils.torch_utils import init_seeds as init_torch_seeds
-from utils.torch_utils import is_parallel
+from yolov5.utils.torch_utils import init_seeds as init_torch_seeds
+from yolov5.utils.torch_utils import is_parallel
 
 # Set printoptions
 torch.set_printoptions(linewidth=320, precision=5, profile='long')
@@ -147,7 +147,10 @@ def check_dataset(dict):
                 print('Downloading %s ...' % s)
                 if s.startswith('http') and s.endswith('.zip'):  # URL
                     f = Path(s).name  # filename
-                    torch.hub.download_url_to_file(s, f)
+                    if platform.system() == 'Darwin':  # avoid MacOS python requests certificate error
+                        os.system('curl -L %s -o %s' % (s, f))
+                    else:
+                        torch.hub.download_url_to_file(s, f)
                     r = os.system('unzip -q %s -d ../ && rm %s' % (f, f))  # unzip
                 else:  # bash script
                     r = os.system(s)
@@ -648,7 +651,7 @@ def non_max_suppression(prediction, conf_thres=0.1, iou_thres=0.6, merge=False, 
         # Batched NMS
         c = x[:, 5:6] * (0 if agnostic else max_wh)  # classes
         boxes, scores = x[:, :4] + c, x[:, 4]  # boxes (offset by class), scores
-        i = torch.ops.torchvision.nms(boxes, scores, iou_thres)
+        i = torchvision.ops.boxes.nms(boxes, scores, iou_thres)
         if i.shape[0] > max_det:  # limit detections
             i = i[:max_det]
         if merge and (1 < n < 3E3):  # Merge NMS (boxes merged using weighted mean)
@@ -855,9 +858,7 @@ def print_mutation(hyp, results, yaml_file='hyp_evolved.yaml', bucket=''):
     print('\n%s\n%s\nEvolved fitness: %s\n' % (a, b, c))
 
     if bucket:
-        url = 'gs://%s/evolve.txt' % bucket
-        if gsutil_getsize(url) > (os.path.getsize('evolve.txt') if os.path.exists('evolve.txt') else 0):
-            os.system('gsutil cp %s .' % url)  # download evolve.txt if larger than local
+        os.system('gsutil cp gs://%s/evolve.txt .' % bucket)  # download evolve.txt
 
     with open('evolve.txt', 'a') as f:  # append result
         f.write(c + b + '\n')
@@ -1187,19 +1188,6 @@ def plot_labels(labels, save_dir=''):
     ax[2].set_ylabel('height')
     plt.savefig(Path(save_dir) / 'labels.png', dpi=200)
     plt.close()
-
-    # seaborn correlogram
-    try:
-        import seaborn as sns
-        import pandas as pd
-        x = pd.DataFrame(b.transpose(), columns=['x', 'y', 'width', 'height'])
-        sns.pairplot(x, corner=True, diag_kind='hist', kind='scatter', markers='o',
-                     plot_kws=dict(s=3, edgecolor=None, linewidth=1, alpha=0.02),
-                     diag_kws=dict(bins=50))
-        plt.savefig(Path(save_dir) / 'labels_correlogram.png', dpi=200)
-        plt.close()
-    except Exception as e:
-        pass
 
 
 def plot_evolution(yaml_file='data/hyp.finetune.yaml'):  # from utils.general import *; plot_evolution()
