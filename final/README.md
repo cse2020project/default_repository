@@ -25,7 +25,13 @@
 
 - D3: D1 + D3 (채택)
 
-\* Augmentation: 모델이 밤 영상에서 모델의 정확도가 감소하는 현상을 개선하기 위해 D3 데이터셋을 grayscale로 변환했습니다.
+\* Augmentation: 모델이 밤 영상에서 모델의 정확도가 감소하는 현상을 개선하기 위해 다음과 같은 코드를 사용해 D3 데이터셋을 grayscale로 변환했습니다.
+
+```python
+img = Image.open(img_path).convert('L')
+img_numpy = np.array(img,'uint8')
+cv2.imwrite(img_path,img_numpy)
+```
 
 <img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
 
