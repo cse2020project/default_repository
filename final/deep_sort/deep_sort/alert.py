@@ -8,8 +8,7 @@ def show_direction(ax,theta, bbox_size):
         if (real_x > 0 and real_x < 50) or (real_x < 360 and real_x > 330):
             theta_single = 0
         r = np.ones(np.shape(theta_single))
-        scale= bbox_size[]/1000;
-        ax.quiver(theta_single, r, np.pi, -1, color='black', angles="xy", scale_units='xy', scale=scale)
+        ax.quiver(theta_single, r, np.pi, -1, color='black', angles="xy", scale_units='xy', scale=1.)
         ax.plot(theta_single, r, color='black', marker='o', markersize=5)
 
 

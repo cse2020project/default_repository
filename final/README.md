@@ -1,6 +1,6 @@
 # 360도 카메라와 Object Tracking을 이용한 보행시 차량 접근 알림
 
-[ 사진 넣기 ~ ]
+![sample](samples/sample.gif)
 
 ## 프로젝트 설명
 
@@ -8,18 +8,25 @@
 
 ## 시스템 작동 방식
 
-영상에서 차량이 감지되면 해당 차량에 대해 추적을 시작합니다. 우리의 관심 대상, 즉 위험차량은 "보행자에게 다가오는 차량"은 360도 영상에서 정면 형태로 표현됩니다. 따라서 다음과 같은 필터링 알고리즘으로 비위험 차량을 제외합니다.
+영상에서 차량이 감지되면 해당 차량에 대해 추적을 시작합니다. 우리의 관심 대상, 즉 위험차량인 "보행자에게 다가오는 차량"은 360도 영상에서 정면 형태로 표현됩니다. 따라서 다음과 같은 필터링 알고리즘으로 비위험 차량을 제외합니다.
 
 ## 데이터셋
 
 모델의 성능을 향상시키기 위해 다양한 데이터셋을 사용해 여러 차례 모델을 학습시켰습니다.
 
-- D1:
-- D2:
-- D3:
-- D4:
+- D1: Google Street View (https://www.crcv.ucf.edu/data/GMCP_Geolocalization/#Dataset)
 
-\* Augmentation: 모델이 밤 영상에서 모델의 정확도가 감소하는 현상을 개선하기 위해 데이터셋을 grayscale로 변환했습니다.
+![d1](samples\d1.jpg)
+
+- D2: Streetlearn (https://sites.google.com/view/streetlearn/dataset?authuser=0)
+
+![d2](C:\Users\eunji\Desktop\eunji\final\samples\d2.jpg)
+
+- D3: D1 + D3 (채택)
+
+\* Augmentation: 모델이 밤 영상에서 모델의 정확도가 감소하는 현상을 개선하기 위해 D3 데이터셋을 grayscale로 변환했습니다.
+
+![gray](C:\Users\eunji\Desktop\eunji\final\samples\gray.jpg)
 
 ## 필터링 알고리즘
 
@@ -76,7 +83,7 @@ Python 3.8 이상에서 1.6 버전 이상의 torch 및 requirements.txt의 모�
 
 ## Tracker 사용 전 설치 사항
 
-Github의 파일 용량 제한으로 업로드 되지 않은 다음 파일을 추가로 설지해야 합니다.
+Github의 파일 용량 제한으로 업로드 되지 않은 다음 파일을 추가로 설치해야 합니다.
 
 - 커스텀 YOLOv5 Weight `.pt` 파일: https://drive.google.com/file/d/17d9hKpUKKsk_MvIPgKlfDPjpx7ybAE9h/view?usp=sharing 
 - DeepSort Weight `.t7` 파일: https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6. (`deep_sort/deep/checkpoint/`에 위치)
