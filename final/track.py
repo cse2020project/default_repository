@@ -100,14 +100,10 @@ def detect(opt, save_img=False):
 
     # Set Dataloader
     vid_path, vid_writer = None, None
-    if webcam:
-        view_img = True
-        cudnn.benchmark = True  # set True to speed up constant image size inference
-        dataset = LoadStreams(source, img_size=imgsz)
-    else:
-        view_img = True
-        save_img = True
-        dataset = LoadImages(source, img_size=imgsz)
+    flag = 0  # 비디오 저장시 사용할 플래그
+    view_img = True
+    save_img = True
+    dataset = LoadImages(source, img_size=imgsz)
 
     # Get names and colors
     names = model.module.names if hasattr(model, 'module') else model.names
@@ -125,8 +121,6 @@ def detect(opt, save_img=False):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='polar')  # 1,1,1그리드
 
-    i=0
-    flag = 0  # 비디오 저장시 사용할 플래그
     for path, img, im0s, vid_cap in dataset:
         #plt
         # Plot origin (agent's start point) - 원점=보행자
@@ -141,8 +135,12 @@ def detect(opt, save_img=False):
         img = torch.from_numpy(img).to(device)
 
         # img 프레임 자르기
-       # '''input 이미지 프레임 자르기'''
+        # '''input 이미지 프레임 자르기'''
         img = img[:, 100:260, :]
+
+        # 결과 이미지 프레임 자르기
+        #결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)
+        im0s = im0s[200:520, :, :]
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -157,14 +155,10 @@ def detect(opt, save_img=False):
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=opt.classes, agnostic=opt.agnostic_nms)
         t2 = time_synchronized()
 
-        # 결과 이미지 프레임 자르기
-        #결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)
-        im0s = im0s[200:520, :, :]
-
         idx+=1
-        if (idx%10!=0):
+        if (idx%10!=0): # 동영상 길이 유지
             if len(outputs) > 0:
-                ori_im = draw_boxes(im0s, bbox_xyxy, identities, isCloser)  # bbox 그리기
+                ori_im = draw_boxes(im0s, bbox_xyxy, identities, isCloser) # 이전 정보로 bbox 그리기
             vid_writer.write(im0s)
             continue
 
@@ -172,42 +166,30 @@ def detect(opt, save_img=False):
         if classify:
             pred = apply_classifier(pred, modelc, img, im0s)
 
-
         # Process detections
         for i, det in enumerate(pred):  # detections per image
-            if webcam:  # batch_size >= 1
-                p, s, im0 = path[i], '%g: ' % i, im0s[i].copy()
-            else: #우리는 여기로 감 - 파일경로 전까지의 출력문은 datasets.py에서 삭제해야함
-                p, s, im0 = path, '', im0s
-                #p, s, im0 = path, '', cv2.resize(im0s, dsize=(640,320)) #결과이미지 크기 줄이기
+            p, s, im0 = path, '', im0s #우리는 여기로 감 - 파일경로 전까지의 출력문은 datasets.py에서 삭제해야함
 
             save_path = str(Path(out) / Path(p).name)
-            txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
             #print(dataset.frame) #프레임 번호
-     #       s += '%gx%g ' % img.shape[2:]  # print string #영상 사이즈 출력 (예:640x320) - 삭제가능
+            #s += '%gx%g ' % img.shape[2:]  # print string #영상 사이즈 출력 (예:640x320) - 삭제가능
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
-
 
             #만약 차량이 detect된 경우
             if det is not None and len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
-                    # img.shape =  torch.Size([1, 3, 320, 640]), im0.shape= (640, 1280, 3)
 
                 # Print results #개수와 클래스 출력(예: 5 cars) -삭제가능
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
-     #               s += '%g %ss, ' % (n, names[int(c)])  # add to string
+                   #s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
-                ''' ????'''
                 bbox_xywh = []
                 confs = []
 
                 # Adapt detections to deep sort input format
                 for *xyxy, conf, cls in det:
-
-                    list=torch.tensor(xyxy) # 결과: tensor([x1, y1, x2, y2])
-
                     img_h, img_w, _ = im0.shape #결과프레임의 사이즈
                     x_c, y_c, bbox_w, bbox_h = bbox_rel(img_w, img_h, *xyxy) #center좌표, w, h
                     obj = [x_c, y_c, bbox_w, bbox_h]
@@ -228,22 +210,14 @@ def detect(opt, save_img=False):
                 # draw boxes for visualization
                 if len(outputs) > 0:
                     bbox_xyxy = outputs[:, :4]
-                    #identities = outputs[:, -1]
                     identities = outputs[:, 4:5]
                     isCloser = outputs[:, -1]
-                    #print(bbox_xyxy)
-                    #print(identities)
                     print(compare_dict)
-#                    ori_im = draw_boxes(im0, bbox_xyxy, identities) #bbox 그리기
                     ori_im = draw_boxes(im0, bbox_xyxy, identities, isCloser)  # bbox 그리기
-                    #coord = coor.coor((bbox_xyxy[:, 0]+bbox_xyxy[:, 2])/2)
-                    #ori_im = draw_boxes(im0, bbox_xyxy, coord)
-
-                    # 방향 display하는 함수 호출
-                    alert.show_direction(ax,coors,frame)
+                    alert.show_direction(ax,coors,frame) # 방향 display하는 함수 호출
 
             # Print time (inference + NMS)
-      #      print('%sDone. (%.3fs)' % (s, t2 - t1))
+            #print('%sDone. (%.3fs)' % (s, t2 - t1))
 
             plt.show(block=False)
             plt.pause(0.01)
@@ -278,8 +252,6 @@ def detect(opt, save_img=False):
             os.system('open ' + save_path)
 
     print('Done. (%.3fs)' % (time.time() - t0))
-
-
 
 
 if __name__ == '__main__':
