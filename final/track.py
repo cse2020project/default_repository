@@ -220,6 +220,16 @@ def detect(opt, save_img=False):
             #print('%sDone. (%.3fs)' % (s, t2 - t1))
 
             plt.show(block=False)
+            # plot 차트 저장
+            # idx가 10이면 1부터 9까지 10과 같은 이미지로 저장
+
+            file = '/Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png' % idx
+            plt.savefig(file)
+            for j in range(9):
+                file = '/Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png' % (j + idx + 1)
+                plt.savefig(file)
+
+            # 차량이 detect된 경우에만 그린다..
             plt.pause(0.01)
             plt.cla()
 
@@ -283,5 +293,5 @@ if __name__ == '__main__':
 # python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step1_front_3.mp4 --img-size 640 --conf-thres 0.2
 # python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step3_back.mp4 --img-size 640 --conf-thres 0.2
 # python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step3_front_2.mp4 --img-size 640 --conf-thres 0.2
-# 차량이 다가올 때, 사람과 차량이 같은 방향으로 움직임 step3_back_2
-# 차량이 다가올 때, 사람과 차량이 반대 방향으로 움직임(사람이 차쪽으로 다가감)
+
+# ffmpeg -f image2 -r 29.97 -i /Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png  /Users/wonyeong/Desktop/ewha/project/plotimgs/output.mp4
