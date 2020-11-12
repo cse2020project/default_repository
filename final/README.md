@@ -17,17 +17,17 @@
 
 - D1: Google Street View (https://www.crcv.ucf.edu/data/GMCP_Geolocalization/#Dataset)
 
-![d1](samples/d1.jpg)
+<img src="samples/d1.jpg" alt="d1" style="zoom:50%;" />
 
 - D2: Streetlearn (https://sites.google.com/view/streetlearn/dataset?authuser=0)
 
-![d2](samples/d2.jpg)
+<img src="samples/d2.jpg" alt="d2" style="zoom:50%;" />
 
 - D3: D1 + D3 (채택)
 
 \* Augmentation: 모델이 밤 영상에서 모델의 정확도가 감소하는 현상을 개선하기 위해 D3 데이터셋을 grayscale로 변환했습니다.
 
-![gray](samples/gray.jpg)
+<img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
 
 ## 필터링 알고리즘
 
