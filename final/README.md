@@ -37,10 +37,34 @@ cv2.imwrite(img_path,img_numpy)
 
 ## 영상 전처리
 
-[소연아 z존 자른거 적어]
+영상 이미지 프레임은 크게 두가지 형태가 있습니다. 
+1) Object Detection을 위해 사용되는 Input이미지 프레임(320X640)
+2) 영상저장을 위한 Output 이미지 프레임(640x1280)
+
+Input 이미지는 torch tensor (RGB,Height,Width) 형태의 이미지입니다. 
+Object detection에 불필요한 이미지 영역(z존) 제거와 예외사항(아래 글 참조) 처리를 위해 이미지 cropping과 concatenation을 수행했습니다. 
+
+<img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
+
+```python
+ img = img[:, 100:260, :]
+        temp = img
+        add_img = temp[:, :, :32]
+        img = torch.cat((img, add_img), dim=2)
+```
+Output 이미지는 numpy 배열 (Height, Width, RGB)형태의 이미지입니다. 
+Input 이미지 비율과 맞추기 위해 아래와 같은 방식으로 처리해줘야 합니다. 
+
+```python
+  im0s = im0s[200:520, :, :]
+        temp = im0s
+        add_im0s = temp[:, :64, :]
+        print(add_im0s.shape)
+        im0s = np.concatenate((im0s, add_im0s), axis=1)
+```
+
 
 ## 필터링 알고리즘
-
 필터링 알고리즘은 4단계로 구성되며 바운딩박스의 중점좌표, 면적 등 바운딩박스 정보를 사용합니다. 매 프레임마다 isCloser 변수는 T의 초기값을 가지며 비위험차량이라면 필터링 알고리즘을 거치면서 F값으로 변경됩니다. 모든 단계가 끝난 뒤에도 T값인 차량은 위험차량이 됩니다. 또한 최초 감지 시 차량의 isCloser는 F값으로 설정됩니다.
 
 모든 필터링 기준은 실험을 통해 경험적으로 구했습니다.
@@ -75,7 +99,17 @@ if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isClo
 
 ## 예외 처리
 
-[소연아 0도 360도 적어]
+본 프로젝트는 360도 영상을 2차원으로 변환하기 위해 등장방형 도법(Equirectangular Projection)을 활용하고 있습니다. 이것은 구 형태의 3차원 데이터를 2차원 평면상에 투영하는 기법이며 이때 0도(360도) 축은 2차원 이미지의 양끝에 배치됩니다. 따라서 0도 또는 360도 축에 존재하는 물체(ex.차량)는 일부가 잘린 형태로 양끝에 나타나게 되고, 물체를 탐지(Object Detection)의 경우 같은 물체를 두 개의 다른 물체로 인식하는 예외사항이 발생합니다. 
+
+<img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
+
+위 문제를 해결하기 위해 640X1280(가로X세로)이미지에서 맨 오른쪽 부분에 0-64픽셀 직사각형 이미지 영역을 이어붙이는 작업을 수행했습니다. 
+
+중복 탐지(detection)을 방지하기 위해 기존의 0-64픽셀 이미지 영역에서 탐지된 물체는 탐지결과 목록에서 제거해줘야 합니다. (기준: 0-64픽셀 이미지 영역에서 탐지된 자동차의 Bouding box의 x2좌표가 64픽셀 값보다 작으면 제거)
+
+<img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
+
+
 
 ## 차량 접근 경고
 
