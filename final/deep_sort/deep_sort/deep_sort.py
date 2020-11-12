@@ -111,7 +111,6 @@ class DeepSort(object):
             # 4단계: 이전 프레임보다 바운딩박스가 작아진, 즉 멀어지는 차량을 필터링
             if isCloser == True and track_id in dict and dict[track_id][1] > box_size:
                 print(str(track_id)+" 3단계 ")
-
                 isCloser = False
             # 필터링 끝났는데 남아있으면 다가오는 차량
 

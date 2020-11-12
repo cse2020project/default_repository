@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b9701d6a-f97f-431b-b335-f0350d26bcf9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/configs/yolov3.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/configs/yolov3_tiny.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep/train.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/demo/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/demo/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/demo/demo.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/coco.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/coco.names" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/darknet19_448.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/tiny-yolo-voc.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/tiny-yolo.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/voc.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/voc.names" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/voc_gaotie.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/yolo-voc.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/yolo.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/yolo_v3.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/cfg/yolov3-tiny.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/darknet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/demo/004545.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/demo/results/004545.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/detect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/detector.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/build.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/build.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/cpu/nms_cpu.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/cpu/vision.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/cuda/nms.cu" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/cuda/vision.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/nms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/ext/vision.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/nms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/nms/python_nms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/region_layer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/weight/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/yolo_layer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/YOLOv3/yolo_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/detector/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/scripts/yolov3_deepsort.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/scripts/yolov3_tiny_deepsort.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/yolov3_deepsort.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/yolov3_deepsort_eval.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/inference/output/step3_front_2.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/final/inference/output/step3_front_2.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/track.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/track.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1kB0DADP5WTMSUSZK9g75IlRcad" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b9701d6a-f97f-431b-b335-f0350d26bcf9" name="Default Changelist" comment="" />
+      <created>1605158556268</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605158556268</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="197" y="11" key="SettingsEditor" timestamp="1605159230585">
+      <screen x="0" y="0" width="1376" height="733" />
+    </state>
+    <state x="197" y="11" key="SettingsEditor/0.0.1376.733@0.0.1376.733" timestamp="1605159230585" />
+  </component>
+</project>
