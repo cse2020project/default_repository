@@ -54,6 +54,7 @@ class DeepSort(object):
 
         # output bbox identities
         outputs = []
+        bbox_size=[]
         for track in self.tracker.tracks:
             if not track.is_confirmed() or track.time_since_update > 1:
                 continue
@@ -112,19 +113,26 @@ class DeepSort(object):
             if isCloser == True and track_id in dict and dict[track_id][1] > box_size:
                 print(str(track_id)+" 3단계 ")
                 isCloser = False
+
+
             # 필터링 끝났는데 남아있으면 다가오는 차량
 
             if isCloser == True:
                 print("\ncar ", track_id, "\'s degree is: ", coor.coor((x2 + x1) / 2) * 57.29578)
+            # 5단계: 바운딩박스의 x2좌표가 0-128사이에 있을 경우
+            if x2 >= 0 and x2 <= 128:
+                continue
             coors.append(coor.coor(x2 + x1) / 2)  # 중점좌표의 라디안값 저장
-
-            outputs.append(np.array([x1, y1, x2, y2, box_size, track_id, isCloser], dtype=np.int))  ####outputs도 bbox확인용으로 만든것것
+            bbox_size.append(box_size)
+            outputs.append(np.array([x1, y1, x2, y2, track_id, isCloser], dtype=np.int))  ####outputs도 bbox확인용으로 만든것것
             dict[track_id] = [x_center, box_size, isCloser, box_ratio]
+
+
 
         if len(outputs) > 0:
             outputs = np.stack(outputs, axis=0)
 
-        return outputs, coors, frame
+        return outputs, coors, frame, bbox_size
 
     """
     TODO:
