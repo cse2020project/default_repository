@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def show_direction(ax,theta,bbox_size,isCloser,identities):
+def show_direction(ax,theta,bbox_size,isCloser):
 
     #concat
-    all=np.vstack((theta,bbox_size,isCloser,identities))
+    all=np.vstack((theta,bbox_size,isCloser))
     all=all.T
     #좌표 plot
     for single in all:

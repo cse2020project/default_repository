@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9701d6a-f97f-431b-b335-f0350d26bcf9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/eunji.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/eunji.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/track.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/track.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
