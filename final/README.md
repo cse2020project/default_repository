@@ -35,6 +35,10 @@ cv2.imwrite(img_path,img_numpy)
 
 <img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
 
+## 영상 전처리
+
+[소연아 z존 자른거 적어]
+
 ## 필터링 알고리즘
 
 필터링 알고리즘은 4단계로 구성되며 바운딩박스의 중점좌표, 면적 등 바운딩박스 정보를 사용합니다. 매 프레임마다 isCloser 변수는 T의 초기값을 가지며 비위험차량이라면 필터링 알고리즘을 거치면서 F값으로 변경됩니다. 모든 단계가 끝난 뒤에도 T값인 차량은 위험차량이 됩니다. 또한 최초 감지 시 차량의 isCloser는 F값으로 설정됩니다.
@@ -69,6 +73,10 @@ elif track_id in dict and dict[track_id][1] == False: isCloser = False
 if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isCloser = False
 ```
 
+## 예외 처리
+
+[소연아 0도 360도 적어]
+
 ## 차량 접근 경고
 
 360도 영상은 그 특성상 바운딩박스 중점좌표의 x값을 활용하면 객체의 접근 방향을 도출할 수 있습니다. 이를 시각화하여 휴대폰 어플 등으로 보여줄 수 있도록 차트를 생성합니다.
@@ -92,15 +100,15 @@ Python 3.8 이상에서 1.6 버전 이상의 torch 및 requirements.txt의 모�
 
 Github의 파일 용량 제한으로 업로드 되지 않은 다음 파일을 추가로 설치해야 합니다.
 
-- 커스텀 YOLOv5 Weight `.pt` 파일: https://drive.google.com/file/d/17d9hKpUKKsk_MvIPgKlfDPjpx7ybAE9h/view?usp=sharing 
-- DeepSort Weight `.t7` 파일: https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6. (`deep_sort/deep/checkpoint/`에 위치)
+- 커스텀 YOLOv5 Weight `.pt` 파일: https://drive.google.com/file/d/17d9hKpUKKsk_MvIPgKlfDPjpx7ybAE9h/view?usp=sharing (`final/`에 위치)
+- DeepSort Weight `.t7` 파일: https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6. (`final/deep_sort/deep/checkpoint/`에 위치)
 
 ## Tracking
 
-Tracking은 대부분의 영상 포맷을 지원합니다. 결과 영상은 `./inference/output`에 저장됩니다.
+Tracking은 대부분의 영상 포맷을 지원합니다. 결과 영상은 `final/inference/output`에 저장됩니다. `final` 디렉토리에서 터미널을 열고 다음과 같이 코드를 실행하면 됩니다.
 
 ```bash
-python3 track.py --source ...
+python track.py --weights ./d5_300.pt --source file.mp4 --img-size 640 --conf-thres 0.2
 ```
 
 - 영상:  `--source file.mp4`
