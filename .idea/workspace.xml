@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b9701d6a-f97f-431b-b335-f0350d26bcf9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/final/inference/output/step3_front_2.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/final/inference/output/step3_front_2.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/samples/d1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/samples/d2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/samples/gray.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/samples/sample.gif" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
