@@ -101,13 +101,13 @@ if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isClo
 
 본 프로젝트는 360도 영상을 2차원으로 변환하기 위해 등장방형 도법(Equirectangular Projection)을 활용하고 있습니다. 이것은 구 형태의 3차원 데이터를 2차원 평면상에 투영하는 기법이며 이때 0도(360도) 축은 2차원 이미지의 양끝에 배치됩니다. 따라서 0도 또는 360도 축에 존재하는 물체(ex.차량)는 일부가 잘린 형태로 양끝에 나타나게 되고, 물체를 탐지(Object Detection)의 경우 같은 물체를 두 개의 다른 물체로 인식하는 예외사항이 발생합니다. 
 
-<img src="samples/p0.jpg" alt="gray" style="zoom:50%;" />
+<img src="samples/p0.JPG" alt="gray" style="zoom:50%;" />
 
 위 문제를 해결하기 위해 640X1280(가로X세로)이미지에서 맨 오른쪽 부분에 0-64픽셀 직사각형 이미지 영역을 이어붙이는 작업을 수행했습니다. 
 
 중복 탐지(detection)을 방지하기 위해 기존의 0-64픽셀 이미지 영역에서 탐지된 물체는 탐지결과 목록에서 제거해줘야 합니다. (기준: 0-64픽셀 이미지 영역에서 탐지된 자동차의 Bouding box의 x2좌표가 64픽셀 값보다 작으면 제거)
 
-<img src="samples/p1.jpg" alt="gray" style="zoom:50%;" />
+<img src="samples/p1.JPG" alt="gray" style="zoom:50%;" />
 
 
 
