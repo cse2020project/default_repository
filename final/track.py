@@ -147,7 +147,7 @@ def detect(opt, save_img=False):
     img = torch.zeros((1, 3, imgsz, imgsz), device=device)  # init img
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
 
-    idx = 0
+    idx = -1
     compare_dict = {}
 
     # create a new figure or activate an exisiting figure
@@ -169,19 +169,9 @@ def detect(opt, save_img=False):
 
         img = torch.from_numpy(img).to(device)
 
-        # 프레임 2개에 하나 가져오기
-        i+=1
-        if i%4!=0:
-            continue
-
-
-        idx+=1
-        if idx<55: continue
-
         # img 프레임 자르기
        # '''input 이미지 프레임 자르기'''
         img = img[:, 100:260, :]
-
 
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -196,12 +186,16 @@ def detect(opt, save_img=False):
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=opt.classes, agnostic=opt.agnostic_nms)
         t2 = time_synchronized()
 
-
         # 결과 이미지 프레임 자르기
         #결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)
         im0s = im0s[200:520, :, :]
-        print(im0s.shape)
 
+        idx+=1
+        if (idx%10!=0):
+            if len(outputs) > 0:
+                ori_im = draw_boxes(im0s, bbox_xyxy, identities, isCloser)  # bbox 그리기
+            vid_writer.write(im0s)
+            continue
 
         # Apply Classifier
         if classify:
@@ -219,7 +213,7 @@ def detect(opt, save_img=False):
             save_path = str(Path(out) / Path(p).name)
             txt_path = str(Path(out) / Path(p).stem) + ('_%g' % dataset.frame if dataset.mode == 'video' else '')
             #print(dataset.frame) #프레임 번호
-            s += '%gx%g ' % img.shape[2:]  # print string #영상 사이즈 출력 (예:640x320) - 삭제가능
+     #       s += '%gx%g ' % img.shape[2:]  # print string #영상 사이즈 출력 (예:640x320) - 삭제가능
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  #  normalization gain whwh
 
 
@@ -232,7 +226,7 @@ def detect(opt, save_img=False):
                 # Print results #개수와 클래스 출력(예: 5 cars) -삭제가능
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
-                    s += '%g %ss, ' % (n, names[int(c)])  # add to string
+     #               s += '%g %ss, ' % (n, names[int(c)])  # add to string
 
                 ''' ????'''
                 bbox_xywh = []
@@ -268,7 +262,7 @@ def detect(opt, save_img=False):
                     isCloser = outputs[:, -1]
                     #print(bbox_xyxy)
                     #print(identities)
-                    #print(compare_dict)
+                    print(compare_dict)
 #                    ori_im = draw_boxes(im0, bbox_xyxy, identities) #bbox 그리기
                     ori_im = draw_boxes(im0, bbox_xyxy, identities, isCloser)  # bbox 그리기
                     #coord = coor.coor((bbox_xyxy[:, 0]+bbox_xyxy[:, 2])/2)
@@ -277,23 +271,17 @@ def detect(opt, save_img=False):
                     # 방향 display하는 함수 호출
                     alert.show_direction(ax,coors,frame)
 
-
-
             # Print time (inference + NMS)
-            print('%sDone. (%.3fs)' % (s, t2 - t1))
-
-
+      #      print('%sDone. (%.3fs)' % (s, t2 - t1))
 
             plt.show(block=False)
-            plt.pause(0.05)
+            plt.pause(0.01)
             plt.cla()
 
             # Stream results
             cv2.imshow('frame', im0)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-
-
 
             # Save results (image with detections)
             if save_img:
@@ -312,8 +300,6 @@ def detect(opt, save_img=False):
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
                     else:
                         vid_writer.write(im0)
-                        print("높이는 ")
-
 
     if save_txt or save_img:
         print('Results saved to %s' % os.getcwd() + os.sep + out)
@@ -350,5 +336,9 @@ if __name__ == '__main__':
         detect(args)
 
 # python track.py --weights ./best.pt --source ../360cam_sample/0925samples/VID_20200924_204559_00_069.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d2.pt --source ../sample4.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d4_300.pt --source ../360cam_sample/1004samples/step1_front.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d5_300.pt --source ../../sample4.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step1_front_3.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step3_back.mp4 --img-size 640 --conf-thres 0.2
+# python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step3_front_2.mp4 --img-size 640 --conf-thres 0.2
+# 차량이 다가올 때, 사람과 차량이 같은 방향으로 움직임 step3_back_2
+# 차량이 다가올 때, 사람과 차량이 반대 방향으로 움직임(사람이 차쪽으로 다가감)
