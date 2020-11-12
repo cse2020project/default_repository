@@ -35,8 +35,36 @@ cv2.imwrite(img_path,img_numpy)
 
 <img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
 
-## 필터링 알고리즘
+## 영상 전처리
 
+영상 이미지 프레임은 크게 두가지 형태가 있습니다. 
+1) Object Detection을 위해 사용되는 Input이미지 프레임(320X640)
+2) 영상저장을 위한 Output 이미지 프레임(640x1280)
+
+Input 이미지는 torch tensor (RGB,Height,Width) 형태의 이미지입니다. 
+Object detection에 불필요한 이미지 영역(z존) 제거와 예외사항(아래 글 참조) 처리를 위해 이미지 cropping과 concatenation을 수행했습니다. 
+
+###이건 내일 
+
+```python
+ img = img[:, 100:260, :]
+        temp = img
+        add_img = temp[:, :, :32]
+        img = torch.cat((img, add_img), dim=2)
+```
+Output 이미지는 numpy 배열 (Height, Width, RGB)형태의 이미지입니다. 
+Input 이미지 비율과 맞추기 위해 아래와 같은 방식으로 처리해줘야 합니다. 
+
+```python
+  im0s = im0s[200:520, :, :]
+        temp = im0s
+        add_im0s = temp[:, :64, :]
+        print(add_im0s.shape)
+        im0s = np.concatenate((im0s, add_im0s), axis=1)
+```
+
+
+## 필터링 알고리즘
 필터링 알고리즘은 4단계로 구성되며 바운딩박스의 중점좌표, 면적 등 바운딩박스 정보를 사용합니다. 매 프레임마다 isCloser 변수는 T의 초기값을 가지며 비위험차량이라면 필터링 알고리즘을 거치면서 F값으로 변경됩니다. 모든 단계가 끝난 뒤에도 T값인 차량은 위험차량이 됩니다. 또한 최초 감지 시 차량의 isCloser는 F값으로 설정됩니다.
 
 모든 필터링 기준은 실험을 통해 경험적으로 구했습니다.
@@ -69,6 +97,20 @@ elif track_id in dict and dict[track_id][1] == False: isCloser = False
 if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isCloser = False
 ```
 
+## 예외 처리
+
+본 프로젝트는 360도 영상을 2차원으로 변환하기 위해 등장방형 도법(Equirectangular Projection)을 활용하고 있습니다. 이것은 구 형태의 3차원 데이터를 2차원 평면상에 투영하는 기법이며 이때 0도(360도) 축은 2차원 이미지의 양끝에 배치됩니다. 따라서 0도 또는 360도 축에 존재하는 물체(ex.차량)는 일부가 잘린 형태로 양끝에 나타나게 되고, 물체탐지(Object Detection)의 경우 같은 물체를 두 개의 다른 물체로 인식하는 예외사항이 발생합니다. 
+
+<img src="samples/p0.JPG" alt="gray" style="zoom:50%;" />
+
+위 문제를 해결하기 위해 640X1280(세로X가로)이미지에서 맨 오른쪽 끝에 0-64픽셀 이미지 영역을 이어붙이는 작업을 수행했습니다. 
+
+중복 탐지(detection)를 방지하기 위해 기존의 0-64픽셀 이미지 영역에서 탐지된 물체는 탐지결과 목록에서 제거해줘야 합니다. (기준: 0-64픽셀 이미지 영역에서 탐지된 자동차의 Bouding box의 x2좌표가 64픽셀 값보다 작으면 제거)
+
+<img src="samples/p1.JPG" alt="gray" style="zoom:50%;" />
+
+
+
 ## 차량 접근 경고
 
 360도 영상은 그 특성상 바운딩박스 중점좌표의 x값을 활용하면 객체의 접근 방향을 도출할 수 있습니다. 이를 시각화하여 휴대폰 어플 등으로 보여줄 수 있도록 차트를 생성합니다.
@@ -92,15 +134,15 @@ Python 3.8 이상에서 1.6 버전 이상의 torch 및 requirements.txt의 모�
 
 Github의 파일 용량 제한으로 업로드 되지 않은 다음 파일을 추가로 설치해야 합니다.
 
-- 커스텀 YOLOv5 Weight `.pt` 파일: https://drive.google.com/file/d/17d9hKpUKKsk_MvIPgKlfDPjpx7ybAE9h/view?usp=sharing 
-- DeepSort Weight `.t7` 파일: https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6. (`deep_sort/deep/checkpoint/`에 위치)
+- 커스텀 YOLOv5 Weight `.pt` 파일: https://drive.google.com/file/d/17d9hKpUKKsk_MvIPgKlfDPjpx7ybAE9h/view?usp=sharing (`final/`에 위치)
+- DeepSort Weight `.t7` 파일: https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6. (`final/deep_sort/deep/checkpoint/`에 위치)
 
 ## Tracking
 
-Tracking은 대부분의 영상 포맷을 지원합니다. 결과 영상은 `./inference/output`에 저장됩니다.
+Tracking은 대부분의 영상 포맷을 지원합니다. 결과 영상은 `final/inference/output`에 저장됩니다. `final` 디렉토리에서 터미널을 열고 다음과 같이 코드를 실행하면 됩니다.
 
 ```bash
-python3 track.py --source ...
+python track.py --weights ./d5_300.pt --source file.mp4 --img-size 640 --conf-thres 0.2
 ```
 
 - 영상:  `--source file.mp4`
