@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9701d6a-f97f-431b-b335-f0350d26bcf9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/eunji.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/eunji.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/inference/output/step3_back.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/track.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/track.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/yolov5/detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/yolov5/detect.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +25,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -40,9 +42,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="197" y="11" key="SettingsEditor" timestamp="1605159230585">
-      <screen x="0" y="0" width="1376" height="733" />
+    <state x="183" y="0" key="SettingsEditor" timestamp="1605174057418">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="183" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1605174057418" />
     <state x="197" y="11" key="SettingsEditor/0.0.1376.733@0.0.1376.733" timestamp="1605159230585" />
   </component>
 </project>

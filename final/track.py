@@ -124,7 +124,7 @@ def detect(opt, save_img=False):
     for path, img, im0s, vid_cap in dataset:
         #plt
         # Plot origin (agent's start point) - 원점=보행자
-        ax.plot(0, 0, color='red', marker='o', markersize=20, alpha=0.3)
+        ax.plot(0, 0, color='black', marker='o', markersize=20, alpha=0.3)
         # Plot configuration
         ax.set_rticks([])
         ax.set_rmax(1)
@@ -137,12 +137,19 @@ def detect(opt, save_img=False):
         # img 프레임 자르기
         # '''input 이미지 프레임 자르기'''
         img = img[:, 100:260, :]
-
+        temp = img
+        add_img = temp[:, :, :32]
+        img = torch.cat((img, add_img), dim=2)
         # 결과 이미지 프레임 자르기
         #결과 프레임 자르기 (bouding box와 object 매칭 시키기 위해!!)
         im0s = im0s[200:520, :, :]
+        temp = im0s
+        add_im0s = temp[:, :64, :]
+        print(add_im0s.shape)
+        im0s = np.concatenate((im0s, add_im0s), axis=1)
 
-        img = img.half() if half else img.float()  # uint8 to fp16/32
+        img = img.half() \
+            if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if img.ndimension() == 3:
             img = img.unsqueeze(0)
@@ -205,16 +212,18 @@ def detect(opt, save_img=False):
                 outputs= []
 
                 if len(bbox_xywh)!=0: #뭔가 detect됐다면 deepsort로 보냄
-                    outputs,coors,frame = deepsort.update(xywhs, confss , im0, compare_dict,dataset.frame)
+                    outputs,coors,frame,bbox_size = deepsort.update(xywhs, confss , im0, compare_dict,dataset.frame)
 
                 # draw boxes for visualization
                 if len(outputs) > 0:
+                    print("!",outputs)
                     bbox_xyxy = outputs[:, :4]
-                    identities = outputs[:, 4:5]
+                    identities = outputs[:, 4]
                     isCloser = outputs[:, -1]
+                    print("isCloser:", isCloser)
                     print(compare_dict)
                     ori_im = draw_boxes(im0, bbox_xyxy, identities, isCloser)  # bbox 그리기
-                    alert.show_direction(ax,coors,frame) # 방향 display하는 함수 호출
+                    alert.show_direction(ax,coors,bbox_size,isCloser) # 방향 display하는 함수 호출
 
             # Print time (inference + NMS)
             #print('%sDone. (%.3fs)' % (s, t2 - t1))
@@ -238,6 +247,7 @@ def detect(opt, save_img=False):
             cv2.imshow('frame', im0)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+            print(im0s.shape)
 
             # Save results (image with detections)
             if save_img:
@@ -249,8 +259,9 @@ def detect(opt, save_img=False):
                         if isinstance(vid_writer, cv2.VideoWriter):
                             vid_writer.release()  # release previous video writer
                         fps = vid_cap.get(cv2.CAP_PROP_FPS)
-                        w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+                        #w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
                         # h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                        w=1344
                         h = 320
                         flag=1
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
