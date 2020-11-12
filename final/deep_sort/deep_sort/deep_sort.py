@@ -118,7 +118,7 @@ class DeepSort(object):
                 print("\ncar ", track_id, "\'s degree is: ", coor.coor((x2 + x1) / 2) * 57.29578)
             coors.append(coor.coor(x2 + x1) / 2)  # 중점좌표의 라디안값 저장
 
-            outputs.append(np.array([x1, y1, x2, y2, track_id, isCloser], dtype=np.int))  ####outputs도 bbox확인용으로 만든것것
+            outputs.append(np.array([x1, y1, x2, y2, box_size, track_id, isCloser], dtype=np.int))  ####outputs도 bbox확인용으로 만든것것
             dict[track_id] = [x_center, box_size, isCloser, box_ratio]
 
         if len(outputs) > 0:

@@ -210,11 +210,12 @@ def detect(opt, save_img=False):
                 # draw boxes for visualization
                 if len(outputs) > 0:
                     bbox_xyxy = outputs[:, :4]
-                    identities = outputs[:, 4:5]
+                    bbox_size = outputs[:, 4:5]
+                    identities = outputs[:, 5:6]
                     isCloser = outputs[:, -1]
                     print(compare_dict)
                     ori_im = draw_boxes(im0, bbox_xyxy, identities, isCloser)  # bbox 그리기
-                    alert.show_direction(ax,coors,frame) # 방향 display하는 함수 호출
+                    alert.show_direction(ax,coors, bbox_size) # 방향 display하는 함수 호출
 
             # Print time (inference + NMS)
             #print('%sDone. (%.3fs)' % (s, t2 - t1))

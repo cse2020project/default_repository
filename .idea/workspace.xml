@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b9701d6a-f97f-431b-b335-f0350d26bcf9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/inference/output/step3_back.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/final/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/alert.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/deep_sort/deep_sort/deep_sort.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final/track.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/track.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final/yolov5/detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/final/yolov5/detect.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
