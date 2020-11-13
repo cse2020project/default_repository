@@ -44,9 +44,9 @@ cv2.imwrite(img_path,img_numpy)
 Input 이미지는 torch tensor (RGB,Height,Width) 형태의 이미지입니다. 
 Object detection에 불필요한 이미지 영역(z존) 제거와 예외사항(아래 글 참조) 처리를 위해 이미지 cropping과 concatenation을 수행했습니다. 
 
-<img src="samples/zzone.png" alt="gray" style="zoom:50%;" width="800" height="500"/>
+<img src="samples/zzone.png" alt="gray" style="zoom:50%;"/>
 
-<img src="samples/exception.png" alt="gray" style="zoom:50%;" width="800" height="800"/>
+<img src="samples/exception.png" alt="gray" style="zoom:50%;" />
 
 
 ```python
