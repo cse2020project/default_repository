@@ -65,15 +65,22 @@ class DeepSort(object):
             box_ratio = (x2 - x1) / (y2 - y1)
             box_size = (x2 - x1) * (y2 - y1)
             track_id = track.track_id
+            box_ratio_exception=(y2-y1)/(x2-x1)
 
             isCloser = True
+            # 0단계: 바운딩박스의 x2좌표가 0-170사이에 있을 경우
+            if x2 >= 0 and x2 <= 170:#output에 포함시키지 않는다.
+                continue
+            # 0단계: 바운딩 박스가 픽셀 1200이상에서 그려지는데, 이때 세로/가로 비율이 1.2이상이면 그리지 않는다.
+            if x1 >= 1200 and box_ratio_exception >= 1.2:
+                continue
             if track_id not in dict: isCloser = False
             # 1단계: 위험거리보다 멀리 있는 차량을 필터링
             if isCloser == True and box_size < 1000 or (((x_center > 0 and x_center < 177) or (x_center> 1173 and x_center<1280 )) and box_size<500):
                 print(str(track_id)+" 1단계 ")
                 isCloser = False
             # 2단계: 가로세로 비율을 비교해 측면차량을 필터링
-            if isCloser == True and box_ratio > 1.5:
+            if isCloser == True and box_ratio > 1.5 :
                 print(str(track_id)+" 2단계 ")
                 isCloser = False
             '''
@@ -95,7 +102,6 @@ class DeepSort(object):
                 print(str(track_id)+" 4단계의 움직일때")
                 isCloser = False
                 # x좌표 변화가 +-5보다 크면 주차된차 (사람 움직일 때)
-
             '''
             # 3단계: 주차된 차량을 필터링
             if isCloser == True and track_id in dict and abs(dict[track_id][0] - x_center) > 5:
@@ -115,13 +121,13 @@ class DeepSort(object):
                 isCloser = False
 
 
+
             # 필터링 끝났는데 남아있으면 다가오는 차량
 
             if isCloser == True:
                 print("\ncar ", track_id, "\'s degree is: ", coor.coor((x2 + x1) / 2) * 57.29578)
-            # 5단계: 바운딩박스의 x2좌표가 0-128사이에 있을 경우
-            if x2 >= 0 and x2 <= 128:
-                continue
+
+
             coors.append(coor.coor(x2 + x1) / 2)  # 중점좌표의 라디안값 저장
             bbox_size.append(box_size)
             outputs.append(np.array([x1, y1, x2, y2, track_id, isCloser], dtype=np.int))  ####outputs도 bbox확인용으로 만든것것

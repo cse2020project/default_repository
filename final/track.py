@@ -59,7 +59,7 @@ def draw_boxes(img, bbox, identities=None, isCloser=None, offset=(0,0)):
         label += "T" if isCloser[i]==True else "F"
 
         t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, 2 , 2)[0]
-        cv2.rectangle(img, (x1, y1),(x2,y2), color, 3)
+        cv2.rectangle(img, (x1, y1),(x2,y2), color, 7)
         cv2.rectangle(img, (x1, y1), (x1 + t_size[0] + 3, y1 + t_size[1] + 4), color, -1)
         cv2.putText(img, label, (x1, y1 + t_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 2, [255, 255, 255], 2)
     return img
@@ -121,6 +121,7 @@ def detect(opt, save_img=False):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='polar')  # 1,1,1그리드
 
+    outputs = []
     for path, img, im0s, vid_cap in dataset:
         #plt
         # Plot origin (agent's start point) - 원점=보행자
@@ -134,8 +135,10 @@ def detect(opt, save_img=False):
 
         img = torch.from_numpy(img).to(device)
 
+
         # img 프레임 자르기
-        # '''input 이미지 프레임 자르기'''
+        # input 이미지 프레임 자르기
+
         img = img[:, 100:260, :]
         temp = img
         add_img = temp[:, :, :32]
@@ -148,11 +151,20 @@ def detect(opt, save_img=False):
         print(add_im0s.shape)
         im0s = np.concatenate((im0s, add_im0s), axis=1)
 
+
         img = img.half() \
             if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
         if img.ndimension() == 3:
             img = img.unsqueeze(0)
+
+        idx += 1
+        if (idx % 10 != 0):  # 동영상 길이 유지
+            '''if len(outputs) > 0:
+                ori_im = draw_boxes(im0s, bbox_xyxy, identities, isCloser)  # 이전 정보로 bbox 그리기'''
+            vid_writer.write(im0s)
+            continue
+
 
         # Inference
         t1 = time_synchronized()
@@ -162,12 +174,9 @@ def detect(opt, save_img=False):
         pred = non_max_suppression(pred, opt.conf_thres, opt.iou_thres, classes=opt.classes, agnostic=opt.agnostic_nms)
         t2 = time_synchronized()
 
-        idx+=1
-        if (idx%10!=0): # 동영상 길이 유지
-            if len(outputs) > 0:
-                ori_im = draw_boxes(im0s, bbox_xyxy, identities, isCloser) # 이전 정보로 bbox 그리기
-            vid_writer.write(im0s)
-            continue
+        print("idx프린트: ",idx)
+
+
 
         # Apply Classifier
         if classify:
@@ -209,7 +218,8 @@ def detect(opt, save_img=False):
                 confss = torch.Tensor(confs)
 
                 # Pass detections to deepsort
-                outputs= []
+
+                outputs=[]
 
                 if len(bbox_xywh)!=0: #뭔가 detect됐다면 deepsort로 보냄
                     outputs,coors,frame,bbox_size = deepsort.update(xywhs, confss , im0, compare_dict,dataset.frame)
@@ -238,7 +248,6 @@ def detect(opt, save_img=False):
             for j in range(9):
                 file = '/Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png' % (j + idx + 1)
                 plt.savefig(file)
-
             # 차량이 detect된 경우에만 그린다..
             '''
             plt.pause(0.01)
@@ -303,8 +312,8 @@ if __name__ == '__main__':
 
 # python track.py --weights ./best.pt --source ../360cam_sample/0925samples/VID_20200924_204559_00_069.mp4 --img-size 640 --conf-thres 0.2
 # python track.py --weights ./d5_300.pt --source ../../sample4.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step1_front_3.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step3_back.mp4 --img-size 640 --conf-thres 0.2
-# python track.py --weights ./d5_300.pt --source ../../360cam_sample/1004samples/step3_front_2.mp4 --img-size 640 --conf-thres 0.2
+# python track.py —weights ./d5_300.pt —source ../../360cam_sample/1004samples/step1_front_3.mp4 —img-size 640 —conf-thres 0.2
+# python track.py —weights ./d5_300.pt —source ../../360cam_sample/1004samples/step3_back.mp4 —img-size 640 —conf-thres 0.2
+# python track.py —weights ./d5_300.pt —source ../../360cam_sample/1004samples/step3_front_2.mp4 —img-size 640 —conf-thres 0.2
 
-# ffmpeg -f image2 -r 29.97 -i /Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png  /Users/wonyeong/Desktop/ewha/project/plotimgs/output.mp4
+# ffmpeg -f image2 -r 29.97 -i /Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png  /Users/wonyeong/Desktop/ewha/project/plotimgs/output.
