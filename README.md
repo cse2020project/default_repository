@@ -5,7 +5,7 @@
 ![sample](samples/sample.gif)
 ![sample](samples/시연결과.gif)
 
-유투브링크: 
+유투브링크: https://www.youtube.com/watch?v=K9YLRFDJP78&feature=youtu.be
 
 
 ## 2. 프로젝트 설명
@@ -170,9 +170,9 @@ python track.py --weights ./d5_300.pt --source file.mp4 --img-size 640 --conf-th
 
 ## 4. 팀원 블로그 
 
-윤소연: https://blog.naver.com/gptjddlthdus
-김은지: 
-이원영: 
+- 윤소연: https://blog.naver.com/gptjddlthdus
+- 김은지: https://eun-g-kim.tistory.com/
+- 이원영: https://developeryoung.tistory.com/
 
 ## 5. License 
 
