@@ -1,17 +1,21 @@
 # 360도 카메라와 Object Tracking을 이용한 보행시 차량 접근 알림
 
+## 1. 시연영상 
+
 ![sample](samples/sample.gif)
 ![sample](samples/시연결과.gif)
 
+유투브링크: 
 
-## 프로젝트 설명
+
+## 2. 프로젝트 설명
 
 이 프로젝트는 PyTorch를 활용한 DeepSORT 알고리즘(https://github.com/ZQPei/deep_sort_pytorch)에 커스텀 YOLOv5를 도입하여 360도 영상에서 차량을 감지 및 추적합니다. 360도 카메라를 착용한 보행자가 다가오는 차량에 경고 알림을 받을 수 있게 하여 보행 중 스마트 기기를 사용하는 주의 분산 보행자, 노인, 어린이와 같은 교통 약자의 안전한 보행을 보장하고자 합니다.
 
-## 시스템 작동 방식
+### 시스템 작동 방식
 
 영상에서 차량이 감지되면 해당 차량에 대해 추적을 시작합니다. 우리의 관심 대상, 즉 위험차량인 "보행자에게 다가오는 차량"은 360도 영상에서 정면 형태로 표현됩니다. 따라서 다음과 같은 필터링 알고리즘으로 비위험 차량을 제외합니다.
-## 데이터셋
+### 데이터셋
 
 모델의 성능을 향상시키기 위해 다양한 데이터셋을 사용해 여러 차례 모델을 학습시켰습니다.
 
@@ -35,7 +39,7 @@ cv2.imwrite(img_path,img_numpy)
 
 <img src="samples/gray.jpg" alt="gray" style="zoom:50%;" />
 
-## 영상 전처리
+### 영상 전처리
 
 영상 이미지 프레임은 크게 두가지 형태가 있습니다. 
 1) Object Detection을 위해 사용되는 Input이미지 프레임(320X640)
@@ -66,7 +70,7 @@ Input 이미지 비율과 맞추기 위해 아래와 같은 방식으로 처리�
 ```
 
 
-## 필터링 알고리즘
+### 필터링 알고리즘
 필터링 알고리즘은 4단계로 구성되며 바운딩박스의 중점좌표, 면적 등 바운딩박스 정보를 사용합니다. 매 프레임마다 isCloser 변수는 T의 초기값을 가지며 비위험차량이라면 필터링 알고리즘을 거치면서 F값으로 변경됩니다. 모든 단계가 끝난 뒤에도 T값인 차량은 위험차량이 됩니다. 또한 최초 감지 시 차량의 isCloser는 F값으로 설정됩니다.
 
 모든 필터링 기준은 실험을 통해 경험적으로 구했습니다.
@@ -99,7 +103,7 @@ elif track_id in dict and dict[track_id][1] == False: isCloser = False
 if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isCloser = False
 ```
 
-## 예외 처리
+### 예외 처리
 
 본 프로젝트는 360도 영상을 2차원으로 변환하기 위해 등장방형 도법(Equirectangular Projection)을 활용하고 있습니다. 이것은 구 형태의 3차원 데이터를 2차원 평면상에 투영하는 기법이며 이때 0도(360도) 축은 2차원 이미지의 양끝에 배치됩니다. 따라서 0도 또는 360도 축에 존재하는 물체(ex.차량)는 일부가 잘린 형태로 양끝에 나타나게 되고, 물체탐지(Object Detection)의 경우 같은 물체를 두 개의 다른 물체로 인식하는 예외사항이 발생합니다. 
 
@@ -113,7 +117,7 @@ if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isClo
 ![sample](samples/예외처리.gif)
 
 
-## 차량 접근 경고
+### 차량 접근 경고
 
 ![sample](samples/차트.gif)
 <img src="samples/각도계산.PNG" alt="gray" style="zoom:50%;" />
@@ -125,7 +129,7 @@ angle = x/width * 2 * math.pi #radian
 angle *= 57.295779513 #degree
 ```
 
-## Requirements
+### Requirements
 
 Python 3.8 이상에서 1.6 버전 이상의 torch 및 requirements.txt의 모든 dependency를 설치합니다. 설치를 위해 다음을 실행합니다.
 
@@ -135,14 +139,14 @@ Python 3.8 이상에서 1.6 버전 이상의 torch 및 requirements.txt의 모�
 - `nvidia-docker`
 - Nvidia Driver Version >= 440.44
 
-## Tracker 사용 전 설치 사항
+### Tracker 사용 전 설치 사항
 
 Github의 파일 용량 제한으로 업로드 되지 않은 다음 파일을 추가로 설치해야 합니다.
 
 - 커스텀 YOLOv5 Weight `.pt` 파일: https://drive.google.com/file/d/17d9hKpUKKsk_MvIPgKlfDPjpx7ybAE9h/view?usp=sharing (`final/`에 위치)
 - DeepSort Weight `.t7` 파일: https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6. (`final/deep_sort/deep/checkpoint/`에 위치)
 
-## Tracking
+### Tracking
 
 Tracking은 대부분의 영상 포맷을 지원합니다. 결과 영상은 `final/inference/output`에 저장됩니다. `final` 디렉토리에서 터미널을 열고 다음과 같이 코드를 실행하면 됩니다.
 
@@ -154,7 +158,7 @@ python track.py --weights ./d5_300.pt --source file.mp4 --img-size 640 --conf-th
 - RTSP stream:  `--source rtsp://170.93.143.139/rtplive/470011e600ef003a004ee33696235daa`
 - HTTP stream:  `--source http://wmccpinetop.axiscam.net/mjpg/video.mjpg`
 
-## 참고 자료
+## 3. References
 
 이 프로젝트는 다음과 같은 자료를 참고했습니다.
 
@@ -162,8 +166,14 @@ python track.py --weights ./d5_300.pt --source file.mp4 --img-size 640 --conf-th
   https://github.com/ZQPei/deep_sort_pytorch
 - Yolov5 + Deep Sort with PyTorch
   https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch
-- 
+- 차량 필터링 알고리즘은 자체적으로 제작한 것입니다. 
 
-## 기타
+## 4. 팀원 블로그 
+
+윤소연: https://blog.naver.com/gptjddlthdus
+김은지: 
+이원영: 
+
+## 5. License 
 
 For more detailed information about the algorithms and their corresponding lisences used in this project access their official github implementations.
