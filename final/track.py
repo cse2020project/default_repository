@@ -160,7 +160,7 @@ def detect(opt, save_img=False):
 
         idx += 1
         if (idx % 10 != 0):  # 동영상 길이 유지
-            '''if len(outputs) > 0:
+            if len(outputs) > 0:
                 ori_im = draw_boxes(im0s, bbox_xyxy, identities, isCloser)  # 이전 정보로 bbox 그리기'''
             vid_writer.write(im0s)
             continue
@@ -245,11 +245,13 @@ def detect(opt, save_img=False):
             '''
             file = '/Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png' % idx
             plt.savefig(file)
+            
             for j in range(9):
-                file = '/Users/wonyeong/Desktop/ewha/project/plotimgs/img%d.png' % (j + idx + 1)
+                file = 'C:/Users/gptjd/OneDrive/Desktop/edit/img%d.png' % (j + idx + 1)
                 plt.savefig(file)
-            # 차량이 detect된 경우에만 그린다..
             '''
+            # 차량이 detect된 경우에만 그린다..
+
             plt.pause(0.01)
             plt.cla()
 

@@ -80,7 +80,7 @@ class DeepSort(object):
                 print(str(track_id)+" 1단계 ")
                 isCloser = False
             # 2단계: 가로세로 비율을 비교해 측면차량을 필터링
-            if isCloser == True and box_ratio > 1.5 :
+            if isCloser == True and box_ratio > 1.5:
                 print(str(track_id)+" 2단계 ")
                 isCloser = False
             '''
@@ -112,9 +112,6 @@ class DeepSort(object):
                 print(str(track_id)+" 4단계 멈춰있을 때")
                 isCloser = False
                 # 바운딩박스 크기가 오차포함 일정하면 주차(사람 멈춰있을 때)
-            elif track_id in dict and dict[track_id][1] == False:
-                print(str(track_id)+" 4단계 예외 ")
-                isCloser = False
             # 4단계: 이전 프레임보다 바운딩박스가 작아진, 즉 멀어지는 차량을 필터링
             if isCloser == True and track_id in dict and dict[track_id][1] > box_size:
                 print(str(track_id)+" 3단계 ")
