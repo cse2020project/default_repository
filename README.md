@@ -108,8 +108,9 @@ if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isClo
 
 중복 탐지(detection)를 방지하기 위해 기존의 0-64(경험적으로 정한 값)픽셀 이미지 영역에서 탐지된 물체는 탐지결과 목록에서 제거해줘야 합니다. (기준: 0-64픽셀 이미지 영역에서 탐지된 자동차의 Bouding box의 x2좌표가 64픽셀 값보다 작으면 제거)
 
-<img src="samples/예외처리." alt="gray" style="zoom:50%;" />
+<img src="samples/예외처리.JPG" alt="gray" style="zoom:50%;" />
 
+![sample](samples/예외처리.gif)
 
 
 ## 차량 접근 경고
