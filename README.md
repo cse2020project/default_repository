@@ -42,9 +42,11 @@ cv2.imwrite(img_path,img_numpy)
 2) 영상저장을 위한 Output 이미지 프레임(640x1280)
 
 Input 이미지는 torch tensor (RGB,Height,Width) 형태의 이미지입니다. 
-Object detection에 불필요한 이미지 영역(z존) 제거와 예외사항(아래 글 참조) 처리를 위해 이미지 cropping과 concatenation을 수행했습니다. 
+Object detection에 불필요한 이미지 영역(z존) 제거와 예외사항(아래 글 참조) 처리를 위해 이미지 좌우 이어붙이기 수행했습니다. 
 
-###이건 내일 
+<img src="samples/zzone.png" alt="gray" style="zoom:50%;" />
+<img src="samples/exception.png" alt="gray" style="zoom:50%;" />
+
 
 ```python
  img = img[:, 100:260, :]
