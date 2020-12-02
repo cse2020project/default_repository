@@ -116,7 +116,7 @@ if isCloser == True and track_id in dict and dict[track_id][1] > box_size: isClo
 ## 차량 접근 경고
 
 ![sample](samples/차트.gif)
-<img src="samples/각도계산.png" alt="gray" style="zoom:50%;" />
+<img src="samples/각도계산.PNG" alt="gray" style="zoom:50%;" />
 
 360도 영상은 그 특성상 바운딩박스 중점좌표의 x값을 활용하면 객체의 접근 방향을 도출할 수 있습니다. 이를 시각화하여 휴대폰 어플 등으로 보여줄 수 있도록 차트를 생성합니다.
 
