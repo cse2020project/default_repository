@@ -1,7 +1,7 @@
 # 360도 카메라와 Object Tracking을 이용한 보행시 차량 접근 알림
 
 ![sample](samples/sample.gif)
-![sample](samples/.gif)
+![sample](samples/시연결과.gif)
 
 
 ## 프로젝트 설명
