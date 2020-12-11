@@ -1,6 +1,13 @@
 # 360도 카메라와 Object Tracking을 이용한 보행시 차량 접근 알림
 
-## 1. 시연영상 
+## 0. 시스템 테스트 영상 
+
+
+
+
+![sample](samples/시연결과.gif)
+
+## 1. 시스템 적용 후 시연영상 
 
 ![sample](samples/sample.gif)
 ![sample](samples/시연결과.gif)
