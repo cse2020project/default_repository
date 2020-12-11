@@ -176,4 +176,4 @@ python track.py --weights ./d5_300.pt --source file.mp4 --img-size 640 --conf-th
 
 ## 5. License 
 
-For more detailed information about the algorithms and their corresponding lisences used in this project access their official github implementations.
+MIT
