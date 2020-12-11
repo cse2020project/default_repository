@@ -5,7 +5,7 @@
 
 
 
-![sample](samples/시연결과.gif)
+![sample](/test_video.gif)
 
 ## 1. 시스템 적용 후 시연영상 
 
